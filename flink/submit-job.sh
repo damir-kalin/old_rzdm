@@ -1,18 +1,14 @@
 #!/bin/bash
 
-JM_PORT="8081"
-JM_ADDRESS="flink-1762357787-jobmanager"
+JM_PORT="${FLINK_REST_PORT:-8081}"
+JM_ADDRESS="${FLINK_REST_ADDRESS:-flink-jobmanager}"
 CLASSES=(
   "com.example.streaming.OrganizationsPipeline"
   "com.example.streaming.ContractorsPipeline"
   "com.example.streaming.ContractorDebtPipeline"
   "com.example.streaming.EmployeePipeline"
   "com.example.streaming.FormPipeline"
-  "com.example.streaming.MovementPipeline"
-  "com.example.streaming.OrderPipeline"
-  "com.example.streaming.BuildingsPipeline"
-  "com.example.streaming.ChairsPipeline"
-  "com.example.streaming.RoomsPipeline"
+  "com.example.streaming.KpiPipeline"
 )
 
 for CLASS in "${CLASSES[@]}"; do

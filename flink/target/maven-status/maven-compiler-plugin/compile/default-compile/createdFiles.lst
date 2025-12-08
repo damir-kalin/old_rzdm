@@ -1,6 +1,6 @@
 com/example/streaming/FormPipeline$Form.class
 com/example/streaming/ContractorsPipeline$Contractor.class
-com/example/streaming/KpiPipline.class
+com/example/streaming/KpiPipeline$RawData.class
 com/example/streaming/OrganizationsPipeline$Organization.class
 com/example/streaming/OrganizationsPipeline.class
 com/example/streaming/EmployeePipeline$1.class
@@ -8,10 +8,10 @@ com/example/streaming/ContractorsPipeline.class
 com/example/streaming/ContractorDebtPipeline$1.class
 com/example/streaming/FormPipeline.class
 com/example/streaming/ContractorDebtPipeline$ContractorDebt.class
+com/example/streaming/KpiPipeline.class
 com/example/streaming/EmployeePipeline$Employee.class
 com/example/streaming/FormPipeline$1.class
 com/example/streaming/OrganizationsPipeline$1.class
 com/example/streaming/ContractorsPipeline$1.class
-com/example/streaming/KpiPipline$RawData.class
 com/example/streaming/EmployeePipeline.class
 com/example/streaming/ContractorDebtPipeline.class
