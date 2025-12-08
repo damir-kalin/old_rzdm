@@ -46,9 +46,9 @@ public class KpiPipline {
                 .build();
 
         DataStream<String> stream = env
-                .fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Rooms Source")
-                .name("Kafka Rooms Source")
-                .uid("kafka-rooms-source");
+                .fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka KPI Source")
+                .name("Kafka KPI Source")
+                .uid("kafka-kpi-source");
 
         // Transform to RawData objects (just wrap the JSON string)
         DataStream<RawData> eventStream = stream.map(value -> {
@@ -98,7 +98,7 @@ public class KpiPipline {
         DataStream<RawData> filteredStream = eventStream
                 .filter(Objects::nonNull)
                 .name("Filter null kpi")
-                .uid("filter-rooms");
+                .uid("filter-kpi");
 
         JdbcSink<RawData> starRocksSink = JdbcSink.<RawData>builder()
                 .withQueryStatement(insertSql, statementBuilder)
