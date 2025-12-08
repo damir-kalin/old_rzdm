@@ -30,13 +30,13 @@ DEFAULT_ARGS = {
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
-    "retry_delay": timedelta(seconds=60),
+    "retry_delay": timedelta(seconds=120),
 }
 
 # Создадим объект класса DAG
 dag =  DAG('mis_loader_with_parms'
            , default_args=DEFAULT_ARGS
-           , schedule=timedelta(seconds=60)
+           , schedule=timedelta(seconds=120)
            , tags=['mis_parser']
            , max_active_runs=1
            , description="DAG для загрузки данных из MIS Kafka в StarRocks"
@@ -519,8 +519,8 @@ fetch_data_from_kafka = PythonOperator(
 )
 
 # Задачи для загрузки данных 
-upload_to_storage  = PythonOperator(
-    task_id='upload_to_storage ',
+upload_to_storage = PythonOperator(
+    task_id='upload_to_storage',
     python_callable=upload_to_storage,
     op_args = ['MIS_', ''],
     dag=dag,

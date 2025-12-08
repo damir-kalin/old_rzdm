@@ -1,10 +1,5 @@
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/FormPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/OrganizationsPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/ChairsPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/EmployeePipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/OrderPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/MovementPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/RoomsPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/ContractorDebtPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/ContractorsPipeline.java
-/home/damir/Projects/my_project/old_rzdm/flink/src/main/java/com/example/streaming/BuildingsPipeline.java
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/FormPipeline.java
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/EmployeePipeline.java
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/ContractorsPipeline.java
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/OrganizationsPipeline.java
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/ContractorDebtPipeline.java

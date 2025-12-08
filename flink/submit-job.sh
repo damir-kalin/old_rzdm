@@ -1,7 +1,7 @@
 #!/bin/bash
 
 JM_PORT="8081"
-JM_ADDRESS="flink-jobmanager"
+JM_ADDRESS="flink-1762357787-jobmanager"
 CLASSES=(
   "com.example.streaming.OrganizationsPipeline"
   "com.example.streaming.ContractorsPipeline"
