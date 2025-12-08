@@ -1,0 +1,21 @@
+xlsx_dbt:
+  target: rzdm_rdv
+  outputs:
+    manual-data:
+      type: starrocks
+      host: kube-starrocks-fe-service
+      port: 9030
+      username: root
+      password: 'Q1w2e3r+'
+      schema: manual-data
+      threads: 1
+      keepalives_idle: 0
+    rzdm_rdv:
+      type: starrocks
+      host: kube-starrocks-fe-service
+      port: 9030
+      username: root
+      password: 'Q1w2e3r+'
+      schema: rzdm_rdv
+      threads: 1
+      keepalives_idle: 0

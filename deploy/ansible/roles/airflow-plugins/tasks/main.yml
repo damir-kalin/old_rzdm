@@ -1,0 +1,33 @@
+---
+- name: Backup existing plugins
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    bash -c "cp -r {{ airflow_plugins_path }} {{ airflow_plugins_path }}.bak.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true"
+  changed_when: false
+
+- name: Create plugins directory
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    mkdir -p {{ airflow_plugins_path }}
+  changed_when: false
+
+- name: Copy plugins to Airflow pod
+  command: >
+    kubectl cp {{ local_plugins_path }}/
+    {{ k8s_namespace }}/{{ airflow_pod }}:{{ airflow_plugins_path }}/
+    --context={{ k8s_context }}
+  register: plugins_copy
+
+- name: Verify plugins copied
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    ls -la {{ airflow_plugins_path }}
+  register: plugins_verify
+  changed_when: false
+
+- name: Show deployed plugins
+  debug:
+    var: plugins_verify.stdout_lines

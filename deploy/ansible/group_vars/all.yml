@@ -1,0 +1,106 @@
+repo_path: "/repo/demo-stand"
+git_branch: "master"
+git_remote: "origin"
+
+airflow_dags_path: "/opt/airflow/dags"
+airflow_plugins_path: "/opt/airflow/plugins"
+airflow_dbt_path: "/opt/airflow/dbt"
+
+local_dags_path: "{{ playbook_dir }}/../../build/airflow/dags"
+local_plugins_path: "{{ playbook_dir }}/../../build/airflow/plugins"
+local_dbt_path: "{{ playbook_dir }}/../../build/dbt"
+local_flink_path: "{{ playbook_dir }}/../../build/flink"
+
+# StarRocks databases to create
+starrocks_databases:
+  - stage
+  - financial_rdv
+  - ods
+  - rdv
+
+# MinIO buckets to create
+minio_buckets:
+  system:
+    - stg
+    - dbt
+  application:
+    - commercialbucket
+    - medicalbucket
+    - hrbucket
+    - accountingbucket
+    - financialbucket
+
+# Kafka topics (name:partitions:replication)
+kafka_topics:
+  - name: sys__nsi__esud_rzdm__organization__data
+    partitions: 3
+    replication: 1
+  - name: sys__nsi__esud_rzdm__contractor__data
+    partitions: 3
+    replication: 1
+  - name: sys__asb__esud_rzdm__contractor_debt__data
+    partitions: 3
+    replication: 1
+  - name: sys__kuirzp__esud_rzdm__employee__data
+    partitions: 3
+    replication: 1
+  - name: sys__isras__esud_rzdm__order__data
+    partitions: 3
+    replication: 1
+  - name: sys__isras__esud_rzdm__movement__data
+    partitions: 3
+    replication: 1
+  - name: sys__buinu__esud_rzdm__form__data
+    partitions: 3
+    replication: 1
+  - name: sys__mis__esud_rzdm._data_99099.fdb.BUILDINGS
+    partitions: 3
+    replication: 1
+  - name: sys__mis__esud_rzdm._data_99099.fdb.CHAIRS
+    partitions: 3
+    replication: 1
+  - name: sys__mis__esud_rzdm._data_99099.fdb.ROOMS
+    partitions: 3
+    replication: 1
+  - name: test
+    partitions: 1
+    replication: 1
+
+# Flink configuration
+flink_rest_port: 8081
+flink_usrlib_path: "/opt/flink/usrlib"
+flink_build_jar: false
+flink_submit_jobs: false
+flink_restart_jobs: false
+
+flink_jobs:
+  - name: OrganizationsPipeline
+    class: com.example.streaming.OrganizationsPipeline
+    parallelism: 1
+  - name: ContractorsPipeline
+    class: com.example.streaming.ContractorsPipeline
+    parallelism: 1
+  - name: ContractorDebtPipeline
+    class: com.example.streaming.ContractorDebtPipeline
+    parallelism: 1
+  - name: EmployeePipeline
+    class: com.example.streaming.EmployeePipeline
+    parallelism: 1
+  - name: OrderPipeline
+    class: com.example.streaming.OrderPipeline
+    parallelism: 1
+  - name: MovementPipeline
+    class: com.example.streaming.MovementPipeline
+    parallelism: 1
+  - name: FormPipeline
+    class: com.example.streaming.FormPipeline
+    parallelism: 1
+  - name: BuildingsPipeline
+    class: com.example.streaming.BuildingsPipeline
+    parallelism: 1
+  - name: ChairsPipeline
+    class: com.example.streaming.ChairsPipeline
+    parallelism: 1
+  - name: RoomsPipeline
+    class: com.example.streaming.RoomsPipeline
+    parallelism: 1

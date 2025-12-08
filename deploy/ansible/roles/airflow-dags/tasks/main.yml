@@ -1,0 +1,33 @@
+---
+- name: Backup existing DAGs
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    bash -c "cp -r {{ airflow_dags_path }} {{ airflow_dags_path }}.bak.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true"
+  changed_when: false
+
+- name: Create DAGs directory
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    mkdir -p {{ airflow_dags_path }}
+  changed_when: false
+
+- name: Copy DAGs to Airflow pod
+  command: >
+    kubectl cp {{ local_dags_path }}/
+    {{ k8s_namespace }}/{{ airflow_pod }}:{{ airflow_dags_path }}/
+    --context={{ k8s_context }}
+  register: dags_copy
+
+- name: Verify DAGs copied
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    ls -la {{ airflow_dags_path }}
+  register: dags_verify
+  changed_when: false
+
+- name: Show deployed DAGs
+  debug:
+    var: dags_verify.stdout_lines

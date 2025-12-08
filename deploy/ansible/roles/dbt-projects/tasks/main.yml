@@ -1,0 +1,47 @@
+---
+- name: Backup existing dbt projects
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    bash -c "cp -r {{ airflow_dbt_path }} {{ airflow_dbt_path }}.bak.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true"
+  changed_when: false
+
+- name: Create dbt directory
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    mkdir -p {{ airflow_dbt_path }}
+  changed_when: false
+
+- name: Copy dbt projects to Airflow pod
+  command: >
+    kubectl cp {{ local_dbt_path }}/
+    {{ k8s_namespace }}/{{ airflow_pod }}:{{ airflow_dbt_path }}/
+    --context={{ k8s_context }}
+  register: dbt_copy
+
+- name: List dbt projects
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    ls -la {{ airflow_dbt_path }}
+  register: dbt_verify
+  changed_when: false
+
+- name: Show deployed dbt projects
+  debug:
+    var: dbt_verify.stdout_lines
+
+- name: Verify dbt installation
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    dbt --version
+  register: dbt_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Show dbt version
+  debug:
+    var: dbt_version.stdout_lines
+  when: dbt_version.rc == 0

@@ -1,0 +1,165 @@
+---
+# Service DB initialization - ONLY service_db with file metadata tables
+- name: Get Postgres Airflow pod
+  command: >
+    kubectl get pods -n {{ k8s_namespace }}
+    -l app.kubernetes.io/name=postgres-airflow
+    -o jsonpath='{.items[0].metadata.name}'
+    --context={{ k8s_context }}
+  register: postgres_pod_result
+  changed_when: false
+  ignore_errors: true
+
+- name: Try alternative label for Postgres pod
+  command: >
+    kubectl get pods -n {{ k8s_namespace }}
+    -l app=postgres-airflow
+    -o jsonpath='{.items[0].metadata.name}'
+    --context={{ k8s_context }}
+  register: postgres_pod_alt
+  changed_when: false
+  when: postgres_pod_result.stdout == ""
+  ignore_errors: true
+
+- name: Set Postgres pod fact
+  set_fact:
+    postgres_pod: "{{ postgres_pod_result.stdout if postgres_pod_result.stdout != '' else postgres_pod_alt.stdout | default('') }}"
+
+- name: Skip if Postgres pod not found
+  debug:
+    msg: "Postgres pod not found, skipping service-db initialization"
+  when: postgres_pod == ""
+
+- name: Check if service_db exists
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ postgres_pod }}
+    --context={{ k8s_context }} --
+    psql -U {{ postgres_airflow_user }} -d airflow -tAc
+    "SELECT 1 FROM pg_database WHERE datname='service_db'"
+  register: service_db_exists
+  changed_when: false
+  when: postgres_pod != ""
+  ignore_errors: true
+
+- name: Create service_db database
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ postgres_pod }}
+    --context={{ k8s_context }} --
+    psql -U {{ postgres_airflow_user }} -d airflow -c "CREATE DATABASE service_db;"
+  when:
+    - postgres_pod != ""
+    - service_db_exists.stdout != "1"
+  ignore_errors: true
+
+- name: Create service_db tables and functions
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ postgres_pod }}
+    --context={{ k8s_context }} --
+    psql -U {{ postgres_airflow_user }} -d service_db -c "
+    -- processing_status table
+    CREATE TABLE IF NOT EXISTS public.processing_status (
+        status_id SMALLINT PRIMARY KEY,
+        code TEXT NOT NULL UNIQUE,
+        description TEXT NOT NULL
+    );
+
+    -- processing_error table
+    CREATE TABLE IF NOT EXISTS public.processing_error (
+        error_id SMALLINT PRIMARY KEY,
+        code TEXT NOT NULL UNIQUE,
+        description TEXT NOT NULL,
+        error_level SMALLINT
+    );
+
+    -- Insert status values
+    INSERT INTO public.processing_status (status_id, code, description) VALUES
+    (1, 'file_detected', 'Обнаружен обновленный файл'),
+    (2, 'file_load_to_store', 'Файл загружается в хранилище'),
+    (3, 'reading_file', 'Чтение файла и запись в базу данных'),
+    (4, 'stage_db_load_completed', 'Загрузка файла в stage базу данных'),
+    (5, 'sandbox_db_load', 'Загрузка файла в sandbox базу данных'),
+    (6, 'processing_completed', 'Обработка файла завершена'),
+    (7, 'processing_failed', 'Обработка файла завершена с ошибкой')
+    ON CONFLICT (status_id) DO NOTHING;
+
+    -- Insert error values
+    INSERT INTO public.processing_error (error_id, code, description, error_level) VALUES
+    (1, 'extension_error', 'Ошибка расширения', 2),
+    (2, 'merged_cells_detected', 'Обнаружены объединенные ячейки на 1м листе', 2),
+    (3, 'more_than_one_list_detected', 'Файл содержит более 1 листа', 1),
+    (4, 's3_connection_failed', 'Ошибка подключения к S3 хранилищу', 2)
+    ON CONFLICT (error_id) DO NOTHING;
+
+    -- buckets table
+    CREATE TABLE IF NOT EXISTS public.buckets (
+        bucket_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        bucket_name TEXT NOT NULL UNIQUE,
+        description TEXT DEFAULT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT now()
+    );
+
+    -- Insert bucket values
+    INSERT INTO public.buckets (bucket_name, description) VALUES
+    ('commercialbucket', 'Бакет коммерческого блока'),
+    ('medicalbucket', 'Бакет медицинского блока'),
+    ('hrbucket', 'Бакет кадравого блока'),
+    ('accountingbucket', 'Бакет бухгалтерского блока'),
+    ('financialbucket', 'Бакет финансового блока')
+    ON CONFLICT (bucket_name) DO NOTHING;
+
+    -- file_metadata table
+    CREATE TABLE IF NOT EXISTS public.file_metadata (
+        file_id TEXT,
+        file_name TEXT,
+        user_creator_name TEXT,
+        last_modified TIMESTAMP NOT NULL,
+        size BIGINT,
+        bucket_id UUID NOT NULL REFERENCES buckets(bucket_id),
+        file_load_status_id SMALLINT NOT NULL REFERENCES processing_status(status_id),
+        error_id SMALLINT REFERENCES processing_error(error_id),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW(),
+        key VARCHAR(255)
+    );
+
+    -- file_metadata_history table
+    CREATE TABLE IF NOT EXISTS public.file_metadata_history (
+        file_id TEXT,
+        file_name TEXT,
+        user_creator_name TEXT,
+        last_modified TIMESTAMP NOT NULL,
+        size BIGINT,
+        bucket_id UUID NOT NULL REFERENCES buckets(bucket_id),
+        file_load_status_id SMALLINT NOT NULL REFERENCES processing_status(status_id),
+        error_id SMALLINT REFERENCES processing_error(error_id),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW(),
+        key VARCHAR(255)
+    );
+
+    -- Index
+    CREATE INDEX IF NOT EXISTS idx_file_metadata_key ON public.file_metadata(key);
+    "
+  when: postgres_pod != ""
+  register: tables_result
+  ignore_errors: true
+
+- name: Show tables creation result
+  debug:
+    var: tables_result.stderr_lines
+  when: tables_result is defined and tables_result.stderr_lines is defined
+
+- name: Verify service_db tables
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ postgres_pod }}
+    --context={{ k8s_context }} --
+    psql -U {{ postgres_airflow_user }} -d service_db -c "\dt public.*"
+  register: tables_list
+  changed_when: false
+  when: postgres_pod != ""
+  ignore_errors: true
+
+- name: Show service_db tables
+  debug:
+    var: tables_list.stdout_lines
+  when: tables_list is defined

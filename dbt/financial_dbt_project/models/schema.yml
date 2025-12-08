@@ -1,0 +1,141 @@
+version: 2
+
+models:
+  - name: stg_source_data
+    description: |
+      Staging модель для исходных данных из Excel файла.
+      Генерирует идентификаторы для всех сущностей Data Vault.
+    config:
+      tags: ["staging", "source"]
+
+  - name: hub_ind
+    description: |
+      Hub для показателя. Содержит уникальные бизнес-ключи показателей.
+      Центральная таблица для всех показателей в системе.
+      Business Key формируется из комбинации: unit_name|data_type|metric|discreteness|value_type|org_name|eat_name|asset_name|ind_code
+    config:
+      tags: ["rdv", "hub"]
+    columns:
+      - name: hub_ind_pk
+        description: "Первичный ключ (MD5 хеш от hub_ind_bk)"
+      - name: hub_ind_bk
+        description: "Business key показателя (конкатенация через | всех справочников)"
+      - name: load_dttm
+        description: "Время первой загрузки записи"
+      - name: source_nm
+        description: "Источник данных"
+
+  - name: hub_asset
+    description: |
+      Hub для актива. Содержит уникальные бизнес-ключи активов.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_data_type
+    description: |
+      Hub для типа данных. Содержит уникальные бизнес-ключи типов данных.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_discr
+    description: |
+      Hub для дискретности. Содержит уникальные бизнес-ключи дискретности.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_eat
+    description: |
+      Hub для вида экономической деятельности. Содержит уникальные бизнес-ключи видов экономической деятельности.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_metric
+    description: |
+      Hub для метрики. Содержит уникальные бизнес-ключи метрик.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_org
+    description: |
+      Hub для организации. Содержит уникальные бизнес-ключи организаций.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_unit
+    description: |
+      Hub для единицы измерения. Содержит уникальные бизнес-ключи единиц измерения.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: hub_value_type
+    description: |
+      Hub для типа значения. Содержит уникальные бизнес-ключи типов значений.
+    config:
+      tags: ["rdv", "hub"]
+
+  - name: link_ind_asset
+    description: |
+      Link между показателем и активом. Связывает hub_ind и hub_asset.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_data_type
+    description: |
+      Link между показателем и типом данных. Связывает hub_ind и hub_data_type.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_disct
+    description: |
+      Link между показателем и дискретностью. Связывает hub_ind и hub_discr.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_eat
+    description: |
+      Link между показателем и видом экономической деятельности. Связывает hub_ind и hub_eat.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_ind
+    description: |
+      Link между показателями (самосвязь). Связывает hub_ind с самим собой.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_metric
+    description: |
+      Link между показателем и метрикой. Связывает hub_ind и hub_metric.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_org
+    description: |
+      Link между показателем и организацией. Связывает hub_ind и hub_org.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_unit
+    description: |
+      Link между показателем и единицей измерения. Связывает hub_ind и hub_unit.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: link_ind_value_type
+    description: |
+      Link между показателем и типом значения. Связывает hub_ind и hub_value_type.
+    config:
+      tags: ["rdv", "link"]
+
+  - name: sat_ind
+    description: |
+      Satellite для показателя. Содержит атрибуты показателя: name и ind_cd.
+    config:
+      tags: ["rdv", "sat"]
+
+  - name: sat_ind_value
+    description: |
+      Satellite для значений показателя. Содержит временные ряды значений: period_dt и value_amt.
+    config:
+      tags: ["rdv", "sat"]
+

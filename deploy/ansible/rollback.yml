@@ -1,0 +1,83 @@
+---
+- name: Rollback Deployment
+  hosts: "{{ target_env | default('test') }}"
+  gather_facts: false
+
+  vars:
+    rollback_component: "all"
+
+  pre_tasks:
+    - name: Get Airflow pod name
+      command: >
+        kubectl get pods -n {{ k8s_namespace }}
+        -l {{ airflow_pod_label }}
+        -o jsonpath='{.items[0].metadata.name}'
+        --context={{ k8s_context }}
+      register: airflow_pod_result
+      changed_when: false
+
+    - name: Set Airflow pod fact
+      set_fact:
+        airflow_pod: "{{ airflow_pod_result.stdout }}"
+
+  tasks:
+    - name: List available DAGs backups
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        bash -c "ls -la {{ airflow_dags_path }}.bak.* 2>/dev/null | tail -5 || echo 'No backups found'"
+      register: dags_backups
+      when: rollback_component in ['all', 'dags']
+
+    - name: Show DAGs backups
+      debug:
+        var: dags_backups.stdout_lines
+      when: rollback_component in ['all', 'dags']
+
+    - name: List available plugins backups
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        bash -c "ls -la {{ airflow_plugins_path }}.bak.* 2>/dev/null | tail -5 || echo 'No backups found'"
+      register: plugins_backups
+      when: rollback_component in ['all', 'plugins']
+
+    - name: Show plugins backups
+      debug:
+        var: plugins_backups.stdout_lines
+      when: rollback_component in ['all', 'plugins']
+
+    - name: Rollback DAGs to latest backup
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        bash -c "LATEST=$(ls -td {{ airflow_dags_path }}.bak.* 2>/dev/null | head -1); if [ -n \"$LATEST\" ]; then rm -rf {{ airflow_dags_path }} && mv $LATEST {{ airflow_dags_path }}; fi"
+      when:
+        - rollback_component in ['all', 'dags']
+        - do_rollback | default(false) | bool
+
+    - name: Rollback plugins to latest backup
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        bash -c "LATEST=$(ls -td {{ airflow_plugins_path }}.bak.* 2>/dev/null | head -1); if [ -n \"$LATEST\" ]; then rm -rf {{ airflow_plugins_path }} && mv $LATEST {{ airflow_plugins_path }}; fi"
+      when:
+        - rollback_component in ['all', 'plugins']
+        - do_rollback | default(false) | bool
+
+    - name: Rollback dbt to latest backup
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        bash -c "LATEST=$(ls -td {{ airflow_dbt_path }}.bak.* 2>/dev/null | head -1); if [ -n \"$LATEST\" ]; then rm -rf {{ airflow_dbt_path }} && mv $LATEST {{ airflow_dbt_path }}; fi"
+      when:
+        - rollback_component in ['all', 'dbt']
+        - do_rollback | default(false) | bool
+
+  post_tasks:
+    - name: Rollback info
+      debug:
+        msg: |
+          To execute rollback, run with: -e do_rollback=true
+          To rollback specific component: -e rollback_component=dags
+      when: not (do_rollback | default(false) | bool)

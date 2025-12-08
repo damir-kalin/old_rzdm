@@ -1,0 +1,81 @@
+---
+- name: Get MinIO pod
+  command: >
+    kubectl get pods -n {{ k8s_namespace }}
+    -l {{ minio_label }}
+    -o jsonpath='{.items[0].metadata.name}'
+    --context={{ k8s_context }}
+  register: minio_pod_result
+  changed_when: false
+
+- name: Set MinIO pod fact
+  set_fact:
+    minio_pod: "{{ minio_pod_result.stdout }}"
+
+- name: Check MinIO is running
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc --version
+  register: mc_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Configure MinIO alias
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc alias set myminio http://localhost:9000 {{ minio_user }} {{ minio_password | default('Q1w2e3r+') }}
+  register: mc_alias
+  changed_when: false
+
+- name: Create system buckets
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc mb --ignore-existing myminio/{{ item }}
+  loop:
+    - stg
+    - dbt
+  register: system_buckets
+
+- name: Create application buckets
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc mb --ignore-existing myminio/{{ item }}
+  loop:
+    - commercialbucket
+    - medicalbucket
+    - hrbucket
+    - accountingbucket
+    - financialbucket
+  register: app_buckets
+
+- name: Set public policy on buckets
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc anonymous set public myminio/{{ item }}
+  loop:
+    - stg
+    - dbt
+    - commercialbucket
+    - medicalbucket
+    - hrbucket
+    - accountingbucket
+    - financialbucket
+  register: bucket_policy
+  ignore_errors: true
+
+- name: List all buckets
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ minio_pod }}
+    --context={{ k8s_context }} --
+    mc ls myminio
+  register: bucket_list
+  changed_when: false
+
+- name: Show buckets
+  debug:
+    var: bucket_list.stdout_lines

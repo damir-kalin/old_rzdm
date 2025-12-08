@@ -1,0 +1,111 @@
+---
+- name: Deploy to Kubernetes Environment
+  hosts: "{{ target_env | default('test') }}"
+  gather_facts: false
+
+  vars:
+    deploy_components:
+      - dags
+      - plugins
+      - dbt
+      - connections
+      - service-db
+      - minio
+      - kafka
+      - starrocks
+      - flink
+
+  pre_tasks:
+    - name: Get Kafka service name dynamically
+      command: >
+        kubectl get svc -n {{ k8s_namespace }}
+        -l {{ kafka_label }}
+        -o jsonpath='{.items[0].metadata.name}'
+        --context={{ k8s_context }}
+      register: kafka_svc_result
+      changed_when: false
+      failed_when: false
+
+    - name: Set Kafka bootstrap dynamically
+      set_fact:
+        kafka_bootstrap: "{{ kafka_svc_result.stdout }}:9092"
+      when: kafka_svc_result.stdout != ""
+
+    - name: Display Kafka bootstrap
+      debug:
+        msg: "Using Kafka bootstrap: {{ kafka_bootstrap }}"
+      when: kafka_bootstrap is defined
+
+    - name: Get Airflow pod name
+      command: >
+        kubectl get pods -n {{ k8s_namespace }}
+        -l {{ airflow_pod_label }}
+        -o jsonpath='{.items[0].metadata.name}'
+        --context={{ k8s_context }}
+      register: airflow_pod_result
+      changed_when: false
+
+    - name: Set Airflow pod fact
+      set_fact:
+        airflow_pod: "{{ airflow_pod_result.stdout }}"
+
+    - name: Verify Airflow pod is running
+      command: >
+        kubectl get pod {{ airflow_pod }} -n {{ k8s_namespace }}
+        --context={{ k8s_context }} -o jsonpath='{.status.phase}'
+      register: pod_status
+      failed_when: pod_status.stdout != "Running"
+      changed_when: false
+
+    - name: Display deployment info
+      debug:
+        msg: |
+          Deploying to: {{ target_env | default('test') }}
+          Namespace: {{ k8s_namespace }}
+          Airflow Pod: {{ airflow_pod }}
+          Components: {{ deploy_components }}
+
+  roles:
+    - role: airflow-dags
+      when: "'dags' in deploy_components"
+
+    - role: airflow-plugins
+      when: "'plugins' in deploy_components"
+
+    - role: dbt-projects
+      when: "'dbt' in deploy_components"
+
+    - role: connections
+      when: "'connections' in deploy_components"
+
+    - role: service-db
+      when: "'service-db' in deploy_components"
+
+    - role: minio-buckets
+      when: "'minio' in deploy_components"
+
+    - role: kafka-topics
+      when: "'kafka' in deploy_components"
+
+    - role: starrocks-schema
+      when: "'starrocks' in deploy_components"
+
+    - role: flink-jobs
+      when: "'flink' in deploy_components"
+
+  post_tasks:
+    - name: Verify DAGs are loaded
+      command: >
+        kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+        --context={{ k8s_context }} --
+        airflow dags list
+      register: dags_list
+      changed_when: false
+
+    - name: Display loaded DAGs
+      debug:
+        msg: "{{ dags_list.stdout_lines | length }} DAGs loaded"
+
+    - name: Deployment complete
+      debug:
+        msg: "Deployment to {{ target_env | default('test') }} completed successfully"

@@ -1,0 +1,38 @@
+---
+- name: Get StarRocks FE pod
+  command: >
+    kubectl get pods -n {{ k8s_namespace }}
+    -l app=starrocks-fe
+    -o jsonpath='{.items[0].metadata.name}'
+    --context={{ k8s_context }}
+  register: starrocks_pod_result
+  changed_when: false
+  ignore_errors: true
+
+- name: Set StarRocks pod fact
+  set_fact:
+    starrocks_pod: "{{ starrocks_pod_result.stdout }}"
+  when: starrocks_pod_result.rc == 0
+
+- name: Create databases in StarRocks
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ starrocks_pod }}
+    --context={{ k8s_context }} --
+    mysql -h 127.0.0.1 -P 9030 -u root -e "CREATE DATABASE IF NOT EXISTS {{ item }};"
+  loop: "{{ starrocks_databases }}"
+  when: starrocks_pod is defined
+  register: db_create
+
+- name: Verify databases created
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ starrocks_pod }}
+    --context={{ k8s_context }} --
+    mysql -h 127.0.0.1 -P 9030 -u root -e "SHOW DATABASES;"
+  register: databases_list
+  changed_when: false
+  when: starrocks_pod is defined
+
+- name: Show databases
+  debug:
+    var: databases_list.stdout_lines
+  when: starrocks_pod is defined

@@ -1,0 +1,121 @@
+---
+- name: Check existing connections
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections list
+  register: existing_connections
+  changed_when: false
+
+- name: Show existing connections
+  debug:
+    var: existing_connections.stdout_lines
+
+# airflow_db connection
+- name: Delete airflow_db connection if exists
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections delete airflow_db
+  ignore_errors: true
+  when: "'airflow_db' in existing_connections.stdout"
+
+- name: Create airflow_db connection
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections add airflow_db
+    --conn-type postgres
+    --conn-host {{ postgres_airflow_host }}
+    --conn-port {{ postgres_airflow_port }}
+    --conn-login {{ postgres_airflow_user }}
+    --conn-password "{{ postgres_airflow_password | default('Q1w2e3r+') }}"
+  register: airflow_db_conn
+  ignore_errors: true
+
+# minio_default connection
+- name: Delete minio_default connection if exists
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections delete minio_default
+  ignore_errors: true
+  when: "'minio_default' in existing_connections.stdout"
+
+- name: Create minio_default connection
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections add minio_default
+    --conn-type generic
+    --conn-host {{ minio_host }}
+    --conn-port {{ minio_port }}
+    --conn-login {{ minio_user }}
+    --conn-password "{{ minio_password | default('Q1w2e3r+') }}"
+    --conn-extra '{"endpoint_url": "http://{{ minio_host }}:{{ minio_port }}", "region_name": "ru-central1"}'
+  register: minio_conn
+  ignore_errors: true
+
+# starrocks_default connection
+- name: Delete starrocks_default connection if exists
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections delete starrocks_default
+  ignore_errors: true
+  when: "'starrocks_default' in existing_connections.stdout"
+
+- name: Create starrocks_default connection
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections add starrocks_default
+    --conn-type mysql
+    --conn-host {{ starrocks_host }}
+    --conn-port {{ starrocks_port }}
+    --conn-login {{ starrocks_user }}
+    --conn-password "{{ starrocks_password | default('Q1w2e3r+') }}"
+  register: starrocks_conn
+  ignore_errors: true
+
+# rzdm_lake_s3 connection (VK Cloud)
+- name: Delete rzdm_lake_s3 connection if exists
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections delete rzdm_lake_s3
+  ignore_errors: true
+  when: "'rzdm_lake_s3' in existing_connections.stdout"
+
+- name: Create rzdm_lake_s3 connection
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections add rzdm_lake_s3
+    --conn-type aws
+    --conn-host {{ s3_endpoint | replace('https://', '') }}
+    --conn-port 443
+    --conn-login "{{ s3_access_key }}"
+    --conn-password "{{ s3_secret_key }}"
+    --conn-extra '{"region_name": "{{ s3_region }}", "endpoint_url": "{{ s3_endpoint }}"}'
+  register: s3_conn
+  when: s3_access_key is defined and s3_secret_key is defined
+  ignore_errors: true
+
+- name: Skip rzdm_lake_s3 - credentials not provided
+  debug:
+    msg: "Skipping rzdm_lake_s3 - provide s3_access_key and s3_secret_key"
+  when: s3_access_key is not defined or s3_secret_key is not defined
+
+# Verify final connections
+- name: Verify connections created
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ airflow_pod }}
+    --context={{ k8s_context }} --
+    airflow connections list
+  register: final_connections
+  changed_when: false
+
+- name: Show final connections
+  debug:
+    var: final_connections.stdout_lines

@@ -1,0 +1,127 @@
+# ---
+# - name: Get Flink JobManager pod
+#   command: >
+#     kubectl get pods -n {{ k8s_namespace }}
+#     -l {{ flink_jobmanager_label }}
+#     -o jsonpath='{.items[0].metadata.name}'
+#     --context={{ k8s_context }}
+#   register: flink_jm_pod_result
+#   changed_when: false
+#   ignore_errors: true
+
+# - name: Set Flink JobManager pod fact
+#   set_fact:
+#     flink_jm_pod: "{{ flink_jm_pod_result.stdout }}"
+#   when: flink_jm_pod_result.rc == 0
+
+# - name: Check if Flink cluster is available
+#   fail:
+#     msg: "Flink JobManager pod not found. Skipping Flink deployment."
+#   when: flink_jm_pod is not defined or flink_jm_pod == ""
+#   ignore_errors: true
+
+# - name: Verify Flink JobManager is running
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     curl -sf http://localhost:{{ flink_rest_port }}/overview
+#   register: flink_status
+#   changed_when: false
+#   when: flink_jm_pod is defined and flink_jm_pod != ""
+#   ignore_errors: true
+
+# - name: Build Flink JAR locally (if mvn available)
+#   command: mvn clean package -DskipTests
+#   args:
+#     chdir: "{{ local_flink_path }}"
+#   register: mvn_build
+#   when: flink_build_jar | default(false) | bool
+#   delegate_to: localhost
+#   ignore_errors: true
+
+# - name: Check if JAR exists locally
+#   stat:
+#     path: "{{ local_flink_path }}/target/streaming-data-pipeline-1.0-SNAPSHOT.jar"
+#   register: local_jar
+#   delegate_to: localhost
+
+# - name: Copy Flink JAR to JobManager pod
+#   command: >
+#     kubectl cp {{ local_flink_path }}/target/streaming-data-pipeline-1.0-SNAPSHOT.jar
+#     {{ k8s_namespace }}/{{ flink_jm_pod }}:{{ flink_usrlib_path }}/streaming-data-pipeline-1.0-SNAPSHOT.jar
+#     --context={{ k8s_context }}
+#   when:
+#     - flink_jm_pod is defined and flink_jm_pod != ""
+#     - local_jar.stat.exists
+#   register: jar_copy
+
+# - name: Verify JAR deployed
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     ls -la {{ flink_usrlib_path }}/streaming-data-pipeline-1.0-SNAPSHOT.jar
+#   register: jar_verify
+#   changed_when: false
+#   when: flink_jm_pod is defined and flink_jm_pod != ""
+
+# - name: List current running jobs
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     flink list -m localhost:{{ flink_rest_port }}
+#   register: current_jobs
+#   changed_when: false
+#   when: flink_jm_pod is defined and flink_jm_pod != ""
+#   ignore_errors: true
+
+# - name: Show current jobs
+#   debug:
+#     var: current_jobs.stdout_lines
+#   when: current_jobs is defined and current_jobs.stdout_lines is defined
+
+# - name: Stop existing jobs (if requested)
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     bash -c "flink list -m localhost:{{ flink_rest_port }} | grep RUNNING | awk '{print $4}' | xargs -I {} flink cancel -m localhost:{{ flink_rest_port }} {}"
+#   when:
+#     - flink_jm_pod is defined and flink_jm_pod != ""
+#     - flink_restart_jobs | default(false) | bool
+#   ignore_errors: true
+
+# - name: Submit Flink jobs
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     flink run
+#     -m localhost:{{ flink_rest_port }}
+#     -d
+#     -c {{ item.class }}
+#     -p {{ item.parallelism | default(1) }}
+#     {{ flink_usrlib_path }}/streaming-data-pipeline-1.0-SNAPSHOT.jar
+#   loop: "{{ flink_jobs }}"
+#   when:
+#     - flink_jm_pod is defined and flink_jm_pod != ""
+#     - flink_submit_jobs | default(false) | bool
+#   register: job_submit
+#   ignore_errors: true
+
+# - name: Show job submission results
+#   debug:
+#     msg: "{{ item.item.name }}: {{ 'SUCCESS' if item.rc == 0 else 'FAILED' }}"
+#   loop: "{{ job_submit.results }}"
+#   when: job_submit is defined and job_submit.results is defined
+
+# - name: Verify jobs running
+#   command: >
+#     kubectl exec -n {{ k8s_namespace }} {{ flink_jm_pod }}
+#     --context={{ k8s_context }} --
+#     flink list -m localhost:{{ flink_rest_port }}
+#   register: final_jobs
+#   changed_when: false
+#   when: flink_jm_pod is defined and flink_jm_pod != ""
+
+# - name: Show running jobs
+#   debug:
+#     var: final_jobs.stdout_lines
+#   when: final_jobs is defined

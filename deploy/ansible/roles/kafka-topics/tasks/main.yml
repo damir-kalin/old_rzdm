@@ -1,0 +1,68 @@
+---
+- name: Get Kafka pod
+  command: >
+    kubectl get pods -n {{ k8s_namespace }}
+    -l {{ kafka_label }}
+    -o jsonpath='{.items[0].metadata.name}'
+    --context={{ k8s_context }}
+  register: kafka_pod_result
+  changed_when: false
+
+- name: Set Kafka pod fact
+  set_fact:
+    kafka_pod: "{{ kafka_pod_result.stdout }}"
+
+- name: Check Kafka is running
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ kafka_pod }}
+    --context={{ k8s_context }} --
+    kafka-topics.sh --version
+  register: kafka_version
+  changed_when: false
+  ignore_errors: true
+
+- name: List existing topics
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ kafka_pod }}
+    --context={{ k8s_context }} --
+    kafka-topics.sh --bootstrap-server localhost:9092 --list
+  register: existing_topics
+  changed_when: false
+  ignore_errors: true
+
+- name: Show existing topics
+  debug:
+    var: existing_topics.stdout_lines
+
+- name: Create Kafka topics
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ kafka_pod }}
+    --context={{ k8s_context }} --
+    kafka-topics.sh
+    --bootstrap-server localhost:9092
+    --create
+    --if-not-exists
+    --topic {{ item.name }}
+    --partitions {{ item.partitions | default(3) }}
+    --replication-factor {{ item.replication | default(1) }}
+  loop: "{{ kafka_topics }}"
+  register: topic_create
+  ignore_errors: true
+
+- name: Show topic creation results
+  debug:
+    msg: "{{ item.item.name }}: {{ 'CREATED' if item.rc == 0 else 'FAILED/EXISTS' }}"
+  loop: "{{ topic_create.results }}"
+  when: topic_create.results is defined
+
+- name: List all topics after creation
+  command: >
+    kubectl exec -n {{ k8s_namespace }} {{ kafka_pod }}
+    --context={{ k8s_context }} --
+    kafka-topics.sh --bootstrap-server localhost:9092 --list
+  register: final_topics
+  changed_when: false
+
+- name: Show final topics
+  debug:
+    var: final_topics.stdout_lines
