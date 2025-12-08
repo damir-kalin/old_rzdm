@@ -1,3 +1,4 @@
+/home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/KpiPipline.java
 /home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/FormPipeline.java
 /home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/EmployeePipeline.java
 /home/damir/Projects/cs/rzdm-data-platform/flink/src/main/java/com/example/streaming/sink/ContractorsPipeline.java

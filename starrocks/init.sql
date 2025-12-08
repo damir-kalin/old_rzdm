@@ -427,3 +427,8 @@ CREATE TABLE IF NOT EXISTS iceberg.rzdm.stg_rooms (
     load_timestamp DATETIME COMMENT 'Время загрузки'
 );
 
+-- Таблица stg_kpi для KPI из топика sys__kuirzp__esud_rzdm__kpi__data
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.stg_kpi (
+    `values` VARCHAR COMMENT 'JSON данные (не распарсенные)',
+    load_timestamp DATETIME COMMENT 'Время загрузки'
+);
