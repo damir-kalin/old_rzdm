@@ -37,7 +37,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__discreteness')
+              to: ref('hub_rdv__discreteness_pmu')
               field: discreteness_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -46,7 +46,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
 
@@ -86,7 +86,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__road')
+              to: ref('hub_rdv__road_pmu')
               field: road_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -95,7 +95,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк__единица_измерения_выручка
@@ -134,7 +134,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__unit')
+              to: ref('hub_rdv__unit_pmu')
               field: unit_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -143,7 +143,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк__канал_продаж_выручка
@@ -182,7 +182,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__sales_channel')
+              to: ref('hub_rdv__sales_channel_pmu')
               field: sales_channel_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -191,7 +191,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк__мед_центр_выручка
@@ -230,7 +230,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__medical_center')
+              to: ref('hub_rdv__medical_center_pmu')
               field: medical_center_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -239,7 +239,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк__сектор_продаж_выручка
@@ -278,7 +278,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__sales_sector')
+              to: ref('hub_rdv__sales_sector_pmu')
               field: sales_sector_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -287,7 +287,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
               
   - name: линк__тип_значения_выручка
@@ -326,7 +326,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__value_type')
+              to: ref('hub_rdv__value_type_pmu')
               field: value_type_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -335,7 +335,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk 
 
   - name: линк__метрика_выручка
@@ -374,7 +374,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__metric')
+              to: ref('hub_rdv__metric_pmu')
               field: metric_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -383,7 +383,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк__тип_данных_выручка
@@ -422,7 +422,7 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__data_type')
+              to: ref('hub_rdv__data_type_pmu')
               field: data_type_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
@@ -431,5 +431,5 @@ models:
           - relationships:
               config:
                 severity: warn
-              to: ref('hub_rdv__revenue')
+              to: ref('hub_rdv__revenue_pmu')
               field: revenue_hk

@@ -30,13 +30,13 @@ models:
         description: "Суррогатный ключ дороги"
         tests:
           - relationships:
-              to: ref('hub_bdv__discreteness')
+              to: ref('hub_bdv__discreteness_pmu')
               field: discreteness_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк_бдв__дорога_выручка
@@ -68,13 +68,13 @@ models:
         description: "Суррогатный ключ дороги"
         tests:
           - relationships:
-              to: ref('hub_bdv__road')
+              to: ref('hub_bdv__road_pmu')
               field: road_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк_бдв__единица_измерения_выручка
@@ -106,13 +106,13 @@ models:
         description: "Суррогатный ключ единиц измерения"
         tests:
           - relationships:
-              to: ref('hub_bdv__unit')
+              to: ref('hub_bdv__unit_pmu')
               field: unit_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк_бдв__канал_продаж_выручка
@@ -144,13 +144,13 @@ models:
         description: "Суррогатный ключ канала продаж"
         tests:
           - relationships:
-              to: ref('hub_bdv__sales_channel')
+              to: ref('hub_bdv__sales_channel_pmu')
               field: sales_channel_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк_бдв__мед_центр_выручка
@@ -182,13 +182,13 @@ models:
         description: "Суррогатный ключ медицинских центров"
         tests:
           - relationships:
-              to: ref('hub_bdv__medical_center')
+              to: ref('hub_bdv__medical_center_pmu')
               field: medical_center_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
             
   - name: линк_бдв__тип_значения_выручка
@@ -220,13 +220,13 @@ models:
         description: "Суррогатный ключ типов значений"
         tests:
           - relationships:
-              to: ref('hub_bdv__value_type')
+              to: ref('hub_bdv__value_type_pmu')
               field: value_type_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk 
 
   - name: линк_бдв__тип_данных_выручка
@@ -258,13 +258,13 @@ models:
         description: "Суррогатный ключ типов данных"
         tests:
           - relationships:
-              to: ref('hub_bdv__data_type')
+              to: ref('hub_bdv__data_type_pmu')
               field: data_type_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
 
   - name: линк_бдв__метрика_выручка
@@ -296,11 +296,11 @@ models:
         description: "Суррогатный ключ метрик"
         tests:
           - relationships:
-              to: ref('hub_bdv__metric')
+              to: ref('hub_bdv__metric_pmu')
               field: metric_hk
       - name: revenue_hk
         description: "Суррогатный ключ выручки"
         tests:
           - relationships:
-              to: ref('hub_bdv__revenue')
+              to: ref('hub_bdv__revenue_pmu')
               field: revenue_hk
