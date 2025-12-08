@@ -37,7 +37,7 @@ inner join main_rdv.sat_rdv__discreteness_pmu s_disc on s_disc.fullname = 'ме�
 inner join main_rdv.link_rdv__unit_revenue_pmu l_unit_rev on h_rev.revenue_hk = l_unit_rev.revenue_hk
 inner join main_rdv.sat_rdv__unit_pmu s_unit on s_unit.unit_hk = l_unit_rev.unit_hk  and s_unit.load_date = (select max(load_date) from main_rdv.sat_rdv__unit)
 -- связь выручки и типов значения
-inner join main_rdv.link_rdv__value_type_revenue_pmu l_vtype_rev on h_rev.revenue_hk = l_vtype_rev.revenue_hk
+inner join main_rdv.link_rdv__value_pmu_type_revenue l_vtype_rev on h_rev.revenue_hk = l_vtype_rev.revenue_hk
 inner join main_rdv.sat_rdv__value_type_pmu s_vtype on s_vtype.fullname = 'нарастающий итог по месяцам с начала года' and s_vtype.load_date = (select max(load_date) from main_rdv.sat_rdv__value_type)
 -- связь выручки и секторов продаж
 inner join main_rdv.link_rdv__sales_sector_revenue_pmu l_sale_sec_rev on h_rev.revenue_hk = l_sale_sec_rev.revenue_hk
