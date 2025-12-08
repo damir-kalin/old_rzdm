@@ -34,7 +34,7 @@ public class MovementPipeline {
 
         String bootstrapServers = System.getenv().getOrDefault(
                 "KAFKA_BOOTSTRAP_SERVERS",
-                "kafka-1762355055:9092"
+                "kafka:9092"
         );
 
         KafkaSource<String> source = KafkaSource.<String>builder()
