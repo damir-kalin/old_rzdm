@@ -335,7 +335,7 @@ public class ContractorsPipeline {
 
     private static StreamExecutionEnvironment createExecutionEnvironment() {
         Configuration config = new Configuration();
-        String restAddress = System.getenv().getOrDefault("FLINK_REST_ADDRESS", "flink-1762357787-jobmanager");
+        String restAddress = System.getenv().getOrDefault("FLINK_REST_ADDRESS", "flink-jobmanager");
         int restPort = Integer.parseInt(System.getenv().getOrDefault("FLINK_REST_PORT", "8081"));
         config.set(RestOptions.ADDRESS, restAddress);
         config.set(RestOptions.PORT, restPort);
