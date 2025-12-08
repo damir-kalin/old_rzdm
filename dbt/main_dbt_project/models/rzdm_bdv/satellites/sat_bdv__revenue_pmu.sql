@@ -32,22 +32,22 @@ inner join main_rdv.link_rdv__medical_center_revenue_pmu l_med_rev on h_rev.reve
 inner join main_rdv.link_rdv__sales_channel_revenue_pmu l_sale_rev on h_rev.revenue_hk = l_sale_rev.revenue_hk
 -- связь выручки и дискретности
 inner join main_rdv.link_rdv__discreteness_revenue_pmu l_disc_rev on h_rev.revenue_hk = l_disc_rev.revenue_hk
-inner join main_rdv.sat_rdv__discreteness_pmu s_disc on s_disc.fullname = 'месяц' and s_disc.load_date = (select max(load_date) from main_rdv.sat_rdv__discreteness)
+inner join main_rdv.sat_rdv__discreteness_pmu s_disc on s_disc.fullname = 'месяц' and s_disc.load_date = (select max(load_date) from main_rdv.sat_rdv__discreteness_pmu)
 -- связь выручки и единиц измерения
 inner join main_rdv.link_rdv__unit_revenue_pmu l_unit_rev on h_rev.revenue_hk = l_unit_rev.revenue_hk
-inner join main_rdv.sat_rdv__unit_pmu s_unit on s_unit.unit_hk = l_unit_rev.unit_hk  and s_unit.load_date = (select max(load_date) from main_rdv.sat_rdv__unit)
+inner join main_rdv.sat_rdv__unit_pmu s_unit on s_unit.unit_hk = l_unit_rev.unit_hk  and s_unit.load_date = (select max(load_date) from main_rdv.sat_rdv__unit_pmu)
 -- связь выручки и типов значения
 inner join main_rdv.link_rdv__value_type_revenue_pmu l_vtype_rev on h_rev.revenue_hk = l_vtype_rev.revenue_hk
-inner join main_rdv.sat_rdv__value_type_pmu s_vtype on s_vtype.fullname = 'нарастающий итог по месяцам с начала года' and s_vtype.load_date = (select max(load_date) from main_rdv.sat_rdv__value_type)
+inner join main_rdv.sat_rdv__value_type_pmu s_vtype on s_vtype.fullname = 'нарастающий итог по месяцам с начала года' and s_vtype.load_date = (select max(load_date) from main_rdv.sat_rdv__value_type_pmu)
 -- связь выручки и секторов продаж
 inner join main_rdv.link_rdv__sales_sector_revenue_pmu l_sale_sec_rev on h_rev.revenue_hk = l_sale_sec_rev.revenue_hk
-inner join main_rdv.sat_rdv__sales_sector_pmu s_sale_sec on s_sale_sec.sales_sector_hk = l_sale_sec_rev.sales_sector_hk and s_sale_sec.load_date = (select max(load_date) from main_rdv.sat_rdv__sales_sector)\
+inner join main_rdv.sat_rdv__sales_sector_pmu s_sale_sec on s_sale_sec.sales_sector_hk = l_sale_sec_rev.sales_sector_hk and s_sale_sec.load_date = (select max(load_date) from main_rdv.sat_rdv__sales_sector_pmu)
 -- связь выручки и метрики
 inner join main_rdv.link_rdv__metric_revenue_pmu l_met_rev on h_rev.revenue_hk = l_met_rev.revenue_hk 
-inner join main_rdv.sat_rdv__metric_pmu s_met on s_met.metric_hk = l_met_rev.metric_hk and s_met.load_date = (select max(load_date) from main_rdv.sat_rdv__metric)
+inner join main_rdv.sat_rdv__metric_pmu s_met on s_met.metric_hk = l_met_rev.metric_hk and s_met.load_date = (select max(load_date) from main_rdv.sat_rdv__metric_pmu)
 -- связь выручки и типов данных
 inner join main_rdv.link_rdv__data_type_revenue_pmu l_dtype_rev on h_rev.revenue_hk = l_dtype_rev.revenue_hk 
-inner join main_rdv.sat_rdv__data_type_pmu s_dtype on s_dtype.fullname = 'расчетный' and s_dtype.load_date = (select max(load_date) from main_rdv.sat_rdv__data_type)
+inner join main_rdv.sat_rdv__data_type_pmu s_dtype on s_dtype.fullname = 'расчетный' and s_dtype.load_date = (select max(load_date) from main_rdv.sat_rdv__data_type_pmu)
 where s_sale_sec.shortname = 'ПМУ'
 group by `year`, `month`, road_hk, l_med_rev.medical_center_hk, s_vtype.value_type_hk, s_unit.unit_hk ,s_disc.discreteness_hk,s_met.metric_hk,s_dtype.data_type_hk 
 
@@ -74,22 +74,22 @@ inner join main_rdv.link_rdv__medical_center_revenue_pmu l_med_rev on h_rev.reve
 inner join main_rdv.link_rdv__sales_channel_revenue_pmu l_sale_rev on h_rev.revenue_hk = l_sale_rev.revenue_hk
 -- связь выручки и дискретности
 inner join main_rdv.link_rdv__discreteness_revenue_pmu l_disc_rev on h_rev.revenue_hk = l_disc_rev.revenue_hk
-inner join main_rdv.sat_rdv__discreteness_pmu s_disc on s_disc.fullname = 'год' and s_disc.load_date = (select max(load_date) from main_rdv.sat_rdv__discreteness)
+inner join main_rdv.sat_rdv__discreteness_pmu s_disc on s_disc.fullname = 'год' and s_disc.load_date = (select max(load_date) from main_rdv.sat_rdv__discreteness_pmu)
 -- связь выручки и единиц измерения
 inner join main_rdv.link_rdv__unit_revenue_pmu l_unit_rev on h_rev.revenue_hk = l_unit_rev.revenue_hk
-inner join main_rdv.sat_rdv__unit_pmu s_unit on s_unit.unit_hk = l_unit_rev.unit_hk and s_unit.load_date = (select max(load_date) from main_rdv.sat_rdv__unit)
+inner join main_rdv.sat_rdv__unit_pmu s_unit on s_unit.unit_hk = l_unit_rev.unit_hk and s_unit.load_date = (select max(load_date) from main_rdv.sat_rdv__unit_pmu)
 -- связь выручки и типов значения
 inner join main_rdv.link_rdv__value_type_revenue_pmu l_vtype_rev on h_rev.revenue_hk = l_vtype_rev.revenue_hk
-inner join main_rdv.sat_rdv__value_type_pmu s_vtype on s_vtype.fullname = 'итог' and s_vtype.load_date = (select max(load_date) from main_rdv.sat_rdv__value_type)
+inner join main_rdv.sat_rdv__value_type_pmu s_vtype on s_vtype.fullname = 'итог' and s_vtype.load_date = (select max(load_date) from main_rdv.sat_rdv__value_type_pmu)
 -- связь выручки и секторов продаж
 inner join main_rdv.link_rdv__sales_sector_revenue_pmu l_sale_sec_rev on h_rev.revenue_hk = l_sale_sec_rev.revenue_hk
-inner join main_rdv.sat_rdv__sales_sector_pmu s_sale_sec on s_sale_sec.sales_sector_hk = l_sale_sec_rev.sales_sector_hk and s_sale_sec.load_date = (select max(load_date) from main_rdv.sat_rdv__sales_sector)
+inner join main_rdv.sat_rdv__sales_sector_pmu s_sale_sec on s_sale_sec.sales_sector_hk = l_sale_sec_rev.sales_sector_hk and s_sale_sec.load_date = (select max(load_date) from main_rdv.sat_rdv__sales_sector_pmu)
 -- связь выручки и метрики
 inner join main_rdv.link_rdv__metric_revenue_pmu l_met_rev on h_rev.revenue_hk = l_met_rev.revenue_hk 
-inner join main_rdv.sat_rdv__metric_pmu s_met on s_met.metric_hk = l_met_rev.metric_hk and s_met.load_date = (select max(load_date) from main_rdv.sat_rdv__metric)
+inner join main_rdv.sat_rdv__metric_pmu s_met on s_met.metric_hk = l_met_rev.metric_hk and s_met.load_date = (select max(load_date) from main_rdv.sat_rdv__metric_pmu)
 -- связь выручки и типов данных
 inner join main_rdv.link_rdv__data_type_revenue_pmu l_dtype_rev on h_rev.revenue_hk = l_dtype_rev.revenue_hk 
-inner join main_rdv.sat_rdv__data_type_pmu s_dtype on s_dtype.fullname = 'расчетный' and s_dtype.load_date = (select max(load_date) from main_rdv.sat_rdv__data_type)
+inner join main_rdv.sat_rdv__data_type_pmu s_dtype on s_dtype.fullname = 'расчетный' and s_dtype.load_date = (select max(load_date) from main_rdv.sat_rdv__data_type_pmu)
 where s_sale_sec.shortname = 'ПМУ' 
 group by h_rev.`year`, road_hk, l_med_rev.medical_center_hk, s_vtype.value_type_hk, s_unit.unit_hk, s_disc.discreteness_hk,s_met.metric_hk,s_dtype.data_type_hk   
 )
