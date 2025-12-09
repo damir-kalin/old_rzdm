@@ -1,28 +1,71 @@
 version: 2
 
 sources:
-  - name: raw
-    description: "Исходные данные из источника"
-    schema: stage
+  - name: excel_forms
+    description: "Источники данных из Excel файлов form_1 и form_2"
+    schema: t1_stage
     tables:
-      - name: accounting_balance_form_1
-        description: "Исходная таблица с данными из файла 'form_1.xlsx', загруженная в stage"
-        identifier: russian_Форма_1_6_месяцев_2025_год_xls_rzdm-dev-data-lake
+      - name: form_1
+        description: "Данные из form_1.xlsx - Бухгалтерский баланс"
         columns:
-          - name: asset_id
-            description: "Идентификатор актива"
-          - name: org_id
-            description: "Идентификатор организации"
-          - name: ind_id
-            description: "Идентификатор показателя"
-          - name: eat_id
-            description: "Идентификатор вида экономической деятельности"
-          - name: unit_id
-            description: "Идентификатор единицы измерения"
-          - name: discr_id
-            description: "Идентификатор дискретности"
-          - name: fct_id
-            description: "Идентификатор факта"
-          - name: mcrreg_id
-            description: "Идентификатор макрорегиона"
+          - name: АКТИВ
+            description: "Название актива/показателя"
+          - name: Код показателя
+            description: "Код показателя (текстовый формат)"
+          - name: Значение
+            description: "Числовое значение показателя"
+          - name: Период
+            description: "Текстовое описание периода"
+          - name: Тип отчета
+            description: "Тип отчета (БУХГАЛТЕРСКИЙ БАЛАНС)"
+          - name: Организация
+            description: "Название организации"
+          - name: Вид экономической деятельности
+            description: "Вид экономической деятельности"
+          - name: Еденица измерения
+            description: "Единица измерения"
+          - name: Квартал
+            description: "Номер квартала"
+          - name: Год
+            description: "Год"
+          - name: Тип значения
+            description: "Тип значения (Нарастающий итог / Итог)"
+          - name: Тип данных
+            description: "Тип данных (Утвержденный)"
+          - name: Метрика
+            description: "Метрика (Факт)"
+          - name: Дискретность
+            description: "Дискретность (Квартал)"
+      
+      - name: form_2
+        description: "Данные из form_2.xlsx - Отчет о финансовых результатах"
+        columns:
+          - name: Наименование показателя
+            description: "Название показателя"
+          - name: Код
+            description: "Код показателя (числовой формат)"
+          - name: Значение
+            description: "Числовое значение показателя"
+          - name: Период
+            description: "Текстовое описание периода"
+          - name: Тип отчета
+            description: "Тип отчета (ОТЧЕТ О ФИНАНСОВЫХ РЕЗУЛЬТАТАХ)"
+          - name: Организация
+            description: "Название организации"
+          - name: Вид экономической деятельности
+            description: "Вид экономической деятельности"
+          - name: Еденица измерения
+            description: "Единица измерения"
+          - name: Квартал
+            description: "Номер квартала"
+          - name: Год
+            description: "Год"
+          - name: Тип значения
+            description: "Тип значения (Нарастающий итог по кварталам с начала года)"
+          - name: Тип данных
+            description: "Тип данных (Утвержденный)"
+          - name: Метрика
+            description: "Метрика (Факт)"
+          - name: Дискретность
+            description: "Дискретность (Квартал)"
 

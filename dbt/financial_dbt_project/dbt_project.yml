@@ -1,8 +1,8 @@
-name: 'xlsx_dbt'
+name: 'proekt_shablon_1'
 version: '1.0.0'
 config-version: 2
 
-profile: 'xlsx_dbt'
+profile: 'proekt_shablon_1'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -17,34 +17,32 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  xlsx_dbt:
+  proekt_shablon_1:
+    +materialized: view
     staging:
       +materialized: table
-      +schema: staging
+      +schema: stage
     rdv:
       hubs:
         +materialized: table
-        +schema: financial_rdv
+        +schema: unverified
       links:
         +materialized: table
-        +schema: financial_rdv
+        +schema: unverified
       sats:
         +materialized: table
-        +schema: financial_rdv
+        +schema: unverified
     bdv:
       hubs:
         +materialized: table
-        +schema: main_bdv
-      links:
-        +materialized: table
-        +schema: main_bdv
+        +schema: unverified
+        +tags: ['bdv']
       sats:
         +materialized: table
-        +schema: main_bdv
+        +schema: unverified
+        +tags: ['bdv']
 
 vars:
-  source_system: '1c'
-
-# on-run-start:
-#   - "{{ cleanup_temp_tables() }}"
+  source_system: 'excel_forms'
+  source_table_name: 'stage.form_1'
 

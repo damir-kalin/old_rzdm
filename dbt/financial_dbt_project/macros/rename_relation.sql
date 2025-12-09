@@ -1,19 +1,23 @@
 {% macro mysql__rename_relation(from_relation, to_relation) -%}
   {%- set from_full = from_relation.render() -%}
   {%- set to_full = to_relation.render() -%}
-  {%- if from_relation.type == 'table' -%}
-    -- For StarRocks: use CREATE TABLE ... AS SELECT instead of RENAME TABLE
-    -- StarRocks doesn't support RENAME TABLE, so we copy data and drop temp table
-    DROP TABLE IF EXISTS {{ to_full }};
+  -- For StarRocks: use CREATE TABLE ... AS SELECT instead of RENAME TABLE
+  -- StarRocks doesn't support RENAME TABLE, so we copy data and drop temp table
+  -- APPEND-ONLY: Если целевая таблица существует, данные уже добавлены через post_hook
+  -- Просто удаляем временную таблицу, не перезаписывая целевую
+  {%- set target_relation = adapter.get_relation(
+        database=to_relation.database,
+        schema=to_relation.schema,
+        identifier=to_relation.identifier
+  ) -%}
+  {%- if target_relation is none -%}
+    -- Целевая таблица не существует: создаем из временной
     CREATE TABLE {{ to_full }} AS SELECT * FROM {{ from_full }};
-    DROP TABLE {{ from_full }};
-  {%- elif from_relation.type == 'view' -%}
-    DROP VIEW IF EXISTS {{ to_full }};
-    CREATE VIEW {{ to_full }} AS SELECT * FROM {{ from_full }};
-    DROP VIEW {{ from_full }};
+    DROP TABLE IF EXISTS {{ from_full }};
   {%- else -%}
-    -- Fallback: try ALTER TABLE RENAME (StarRocks syntax)
-    ALTER TABLE {{ from_full }} RENAME {{ to_full }};
+    -- Целевая таблица существует: данные уже добавлены через post_hook (append-only)
+    -- Просто удаляем временную таблицу, не перезаписывая целевую
+    DROP TABLE IF EXISTS {{ from_full }};
   {%- endif -%}
 {%- endmacro %}
 

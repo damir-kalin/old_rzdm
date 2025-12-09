@@ -45,10 +45,9 @@ class StarRocksDataConverter:
             index=False,
             header=False,
             sep=separator,
-            na_rep="",
+            na_rep="\\N",
             encoding='utf-8',
-            escapechar='\\',
-            quoting=3,  # QUOTE_NONE - не использовать кавычки
+            quoting=3,
             doublequote=False,
             lineterminator='\n',
         )
@@ -87,12 +86,12 @@ class StarRocksDataConverter:
             # Конвертируем все в строки
             df_clean[col] = df_clean[col].astype(str)
 
-            # Заменяем все варианты null/nan на пустую строку
+            # Заменяем все варианты null/nan на None для корректной обработки na_rep
             df_clean[col] = df_clean[col].replace([
                 'nan', 'NaN', 'None', 'NULL', 'null', '<NA>',
                 'nat', 'NaT', 'NONE', 'Null', 'NAN',
                 'N/A', 'n/a', '#N/A', 'NA'
-            ], '')
+            ], None)
 
             # Удаляем управляющие символы
             df_clean[col] = df_clean[col].str.replace(

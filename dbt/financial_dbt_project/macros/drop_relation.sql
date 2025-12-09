@@ -2,15 +2,12 @@
   {%- if relation is none -%}
     {{ return("") }}
   {%- endif -%}
+  -- For StarRocks: DROP without CASCADE (StarRocks doesn't support CASCADE)
   {%- set relation_type = relation.type -%}
   {%- if relation_type == 'view' -%}
-    {%- set drop_command = 'drop view if exists' -%}
-  {%- elif relation_type == 'table' -%}
-    {%- set drop_command = 'drop table if exists' -%}
+    drop view if exists {{ relation }}
   {%- else -%}
-    {%- set drop_command = 'drop ' ~ relation_type ~ ' if exists' -%}
+    drop table if exists {{ relation }}
   {%- endif -%}
-  {%- set full_relation = relation.render() -%}
-  {{ drop_command }} {{ full_relation }}
 {%- endmacro %}
 

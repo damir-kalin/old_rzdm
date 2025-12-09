@@ -1,35 +1,35 @@
 from datetime import datetime, timedelta
+import os
 
 from airflow import DAG
 from airflow.utils.trigger_rule import TriggerRule
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import BranchPythonOperator
-from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 from airflow.decorators import task
 
-from base_operators import (
-    CheckMergedFieldsOperator,
-    CheckMultipleSheetsOperator,
-    DeleteInfoMetadataOperator,
-)
-from dbt_operators import DbtTypingOperator
 from starrocks_operators import (
-    StarRocksStreamLoadOperator,
-    StarRocksToPostgresOperator,
     StarRocksDropTableOperator,
     StarRocksDropViewOperator,
 )
-from minio_operators import MinioDeleteFileOperator
 from vk_cloud_operators import VKCloudS3Sensor, FinancialFormsOperator
 import re
 
+# Detect environment and set bucket name
+ENV = os.getenv('AIRFLOW_ENV', 'dev')
+if ENV == 'prod':
+    BUCKET_NAME = "rzdm-prod-buinu-sys-bucket"
+elif ENV == 'test':
+    BUCKET_NAME = "rzdm-test-buinu-sys-bucket"
+else:
+    BUCKET_NAME = "rzdm-dev-buinu-sys-bucket"
+BUCKET_NAME_CLEAN = BUCKET_NAME.replace("-", "_")
+
 
 def is_financial_form(file_name: str) -> bool:
-    """Detect if file is a financial form (Form 1 or Form 2, 2025 year ONLY)"""
+    """Detect if file is a financial form (Form 1 or Form 2, any year, any period)"""
     patterns = [
-        r'форма\s*[12].*2025.*\.xls[x]?$',  # Form 1 or 2, 2025
-        r'form\s*[12].*2025.*\.xls[x]?$',   # Form 1 or 2, 2025
+        r'форма\s*[12].*\d{4}.*\.xls[xmb]?$',
+        r'form\s*[12].*\d{4}.*\.xls[xmb]?$',
     ]
     file_name_lower = file_name.lower()
     return any(re.search(pattern, file_name_lower) for pattern in patterns)
@@ -69,12 +69,12 @@ def get_missing_files(**context):
     return missing_files
 
 
-@task
-def process_changed_file(file_data):
+def process_changed_file(**context):
     """
-    Обработать один файл с полной изоляцией ошибок.
-    Возвращает детальную статистику обработки.
+    Обработать один файл финансовой формы.
+    Использует VK Cloud S3 и VKStreamLoader.
     """
+    file_data = context['file_data']
 
     start_time = datetime.now()
     file_name = file_data['file_name']
@@ -82,236 +82,61 @@ def process_changed_file(file_data):
     key = file_data['key']
     field = file_data['guid']
     table_name = file_data['table_name']
-    destination_schema = "stage"
-    status = file_data.get('status', 'missing')
+    destination_schema = "stg_buinu"
+    status = file_data.get('status', 'new')
     file_size = file_data.get('size', 0)
-    base_starrocks_table = f"{table_name}_{bucket_name}"
-    lower_file_name = file_name.lower()
+    base_starrocks_table = f"{table_name}_{bucket_name}".replace("-", "_")
 
-    # Determine S3 connection based on bucket
-    if bucket_name == "rzdm-dev-data-lake":
-        s3_conn_id = "rzdm_lake_s3"  # VK Cloud S3
-    else:
-        s3_conn_id = "minio_default"  # Local MinIO
-
-    # Skip non-2025 files
-    if "2025" not in file_name:
-        print(
-            f"Skipping non-2025 file '{file_name}' - only 2025 files are processed"
-        )
-        start_time = datetime.now()
-        end_time = datetime.now()
-        processing_time = (end_time - start_time).total_seconds()
-        return {
-            'file_name': file_name,
-            'status': 'success',
-            'bucket': bucket_name,
-            'destination_schema': destination_schema,
-            'destination_table': table_name,
-            'starrocks_table': None,
-            'file_status': file_data.get('status', 'unknown'),
-            'file_size_bytes': file_size,
-            'rows_loaded': 0,
-            'table_dropped': False,
-            'dropped_stage': False,
-            'old_file_deleted': False,
-            'steps_completed': ['skip_non_2025_form'],
-            'processing_time_seconds': round(processing_time, 2),
-            'start_time': start_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'end_time': end_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'skip_reason': 'non_2025_file',
-        }
+    # VK Cloud S3 connection
+    s3_conn_id = "rzdm_lake_s3"
 
     is_form = is_financial_form(file_name)
-    starrocks_table = (
-        f"financial_{base_starrocks_table}"
-        if is_form else base_starrocks_table
-    )
 
-    # Статистика по шагам обработки
     steps_completed = []
+    rows_loaded = 0
 
     try:
-        # Check if this is a financial form
-        if is_form:
-            print(f"Processing Financial Form: {file_name}")
+        # NOTE: No longer dropping tables - form_1_assets and form_2_financial are static tables
+        # Data is appended to existing tables
 
-            # Use Financial Forms Operator with Enhanced Logic
-            forms_operator = FinancialFormsOperator(
-                task_id=f"financial_form_{field}",
-                s3_bucket=bucket_name,
-                s3_key=key,
-                starrocks_table=starrocks_table,
-                file_id=field,
-                s3_conn_id=s3_conn_id,  # Dynamic S3 connection
-                starrocks_conn_id="starrocks_default",
-                starrocks_database=destination_schema,
-            )
+        # Process financial form using FinancialFormsOperator
+        print(f"Processing Financial Form: {file_name}")
+        forms_operator = FinancialFormsOperator(
+            task_id=f"financial_form_{field}",
+            s3_bucket=bucket_name,
+            s3_key=key,
+            file_id=field,
+            s3_conn_id=s3_conn_id,
+            starrocks_conn_id="starrocks_default",
+            starrocks_database=destination_schema,
+            postgres_conn_id="airflow_db",
+            enable_logging=True,  # Enable file status tracking in forms_file_metadata
+        )
 
-            form_result = forms_operator.execute({})
+        form_result = forms_operator.execute({})
 
-            if form_result['success']:
-                rows_loaded = form_result.get(
-                    'rows_loaded',
-                    form_result.get('rows_processed', 0)
-                )
-                starrocks_success = True
-                steps_completed.append('financial_form_processing')
-                steps_completed.append('load_to_starrocks')
-            else:
-                raise Exception(f"Financial form processing failed: {form_result.get('error')}")
-
-        else:
-            print(f"Processing standard Excel file: {file_name}")
-
-        if not is_form:
-            # 1. Проверка объединенных ячеек
-            merged_operator = CheckMergedFieldsOperator(
-                task_id=f"check_merged_fields_{field}",
-                bucket_name=bucket_name,
-                key=key,
-                field=field,
-                s3_conn_id=s3_conn_id,
-                postgres_conn_id="airflow_db",
-            )
-            merged_operator.execute({})
-            steps_completed.append('check_merged_cells')
-
-            # 2. Проверка множественных листов
-            sheets_operator = CheckMultipleSheetsOperator(
-                task_id=f"check_multiple_sheets_{field}",
-                bucket_name=bucket_name,
-                key=key,
-                field=field,
-                s3_conn_id=s3_conn_id,
-                postgres_conn_id="airflow_db",
-            )
-            sheets_operator.execute({})
-            steps_completed.append('check_multiple_sheets')
-
-        # 3. Очистка таблицы в StarRocks
-        # (выполняется только если файл изменен)
-        dropped = False
-        if status == "changed":
-            print(
-                f"Файл {file_name} был изменен, выполняется DROP таблицы "
-                f"{destination_schema}.{table_name if not is_form else starrocks_table}"
-            )
-            drop_operator = StarRocksDropTableOperator(
-                task_id=f"starrocks_truncate_{field}",
-                starrocks_database=destination_schema,
-                starrocks_table=table_name if not is_form else starrocks_table,
-                starrocks_conn_id="starrocks_default",
-                dag=None,
-            )
-            drop_result = drop_operator.execute({})
-            if drop_result:
-                steps_completed.append('drop_table')
-                dropped = True
-        else:
-            print(
-                f"Файл {file_name} со статусом '{status}', "
-                f"Удаление таблицы не требуется"
-            )
-
-        # 4. Load to StarRocks (skip for financial forms - already loaded)
-        if not is_form:
-            starrocks_operator = StarRocksStreamLoadOperator(
-                task_id=f"starrocks_stream_load_{field}",
-                s3_bucket=bucket_name,
-                s3_key=key,
-                starrocks_table=starrocks_table,
-                file_id=field,
-                postgres_conn_id="airflow_db",
-            )
-            starrocks_result = starrocks_operator.execute({})
-
-            # Получаем количество загруженных строк из результата
-            if isinstance(starrocks_result, dict):
-                rows_loaded = starrocks_result.get('rows_loaded', 0)
-                starrocks_success = starrocks_result.get('success', False)
-            else:
-                # Обратная совместимость со старым форматом (True/False)
-                rows_loaded = 0
-                starrocks_success = bool(starrocks_result)
-
+        if form_result['success']:
+            rows_loaded = form_result.get('rows_loaded', form_result.get('rows_processed', 0))
+            steps_completed.append('financial_form_processing')
             steps_completed.append('load_to_starrocks')
-
-        # 5. dbt типизация
-        dropped_stage = False
-        if not is_form:
-            dbt_operator = DbtTypingOperator(
-                task_id=f"dbt_typing_{field}",
-                source_schema="stage",
-                source_table=starrocks_table,
-                destination_schema='stage',
-                destination_table=table_name,
-                field=field,
-                pg_conn_id="airflow_db",
-                dbt_project_path="/opt/airflow/dbt/sandbox_dbt_project",
-            )
-            dbt_operator.execute({})
-            steps_completed.append('dbt_typing')
-
-            if 'dbt_typing' in steps_completed:
-                print(
-                    f"Очистка таблицы таблицы stage.{table_name+'_'+bucket_name}"
-                )
-                drop_stage_operator = StarRocksDropTableOperator(
-                    task_id=f"starrocks_truncate_stage_{field}",
-                    starrocks_database='stage',
-                    starrocks_table=table_name+'_'+bucket_name,
-                    starrocks_conn_id="starrocks_default",
-                    dag=None,
-                )
-                drop_stage_operator = drop_stage_operator.execute({})
-                if drop_stage_operator:
-                    steps_completed.append('drop_stage_table')
-                    dropped_stage = True
-
-        # 6. Удаление старого файла из MinIO
-        # Только если файл изменен и загрузка успешна
-        deleted = False
-        if status == "changed" and starrocks_success:
-            delete_operator = MinioDeleteFileOperator(
-                task_id=f"minio_delete_file_{field}",
-                s3_bucket=bucket_name,
-                file_name=file_name,
-                status=status,
-                s3_conn_id=s3_conn_id,
-                postgres_conn_id="airflow_db",
-            )
-            delete_result = delete_operator.execute({})
-            if delete_result:
-                steps_completed.append('delete_old_file')
-                deleted = True
-
-            # 7. Удаление информации о файле из базы данных
-            delete_operator = DeleteInfoMetadataOperator(
-                task_id=f"delete_info_metadata_{field}",
-                file_name=file_name,
-                bucket=bucket_name,
-                rn=2,
-                postgres_conn_id="airflow_db",
-            )
-            delete_result = delete_operator.execute({})
+        else:
+            raise Exception(f"Financial form processing failed: {form_result.get('error')}")
 
         end_time = datetime.now()
         processing_time = (end_time - start_time).total_seconds()
+
+        starrocks_table = form_result.get('table_name', 'unknown')
 
         return {
             'file_name': file_name,
             'status': 'success',
             'bucket': bucket_name,
             'destination_schema': destination_schema,
-            'destination_table': table_name,
+            'destination_table': starrocks_table,
             'starrocks_table': starrocks_table,
             'file_status': status,
             'file_size_bytes': file_size,
             'rows_loaded': rows_loaded,
-            'table_dropped': dropped,
-            'dropped_stage': dropped_stage,
-            'old_file_deleted': deleted,
             'steps_completed': steps_completed,
             'processing_time_seconds': round(processing_time, 2),
             'start_time': start_time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -336,58 +161,32 @@ def process_changed_file(file_data):
         }
 
 
-@task
-def process_missing_file(file_data):
+def process_missing_file(**context):
     """
-    Обработать один файл с полной изоляцией ошибок.
-    Возвращает детальную статистику обработки.
+    Обработать удаленный файл - очистка таблиц в StarRocks.
+    НЕ пишет в метастор.
     """
+    file_data = context['file_data']
 
     start_time = datetime.now()
     file_name = file_data['file_name']
     bucket_name = file_data['bucket']
-    key = file_data['key']
     field = file_data['guid']
     table_name = file_data['table_name']
-    starrocks_table = f"{table_name}_{bucket_name}"
-    destination_schema = "stage"
+    starrocks_table = f"{table_name}_{bucket_name}".replace("-", "_")
+    destination_schema = "stg_buinu"
     status = file_data['status']
     file_size = file_data.get('size', 0)
 
-    # Determine S3 connection based on bucket
-    if bucket_name == "rzdm-dev-data-lake":
-        s3_conn_id = "rzdm_lake_s3"  # VK Cloud S3
-    else:
-        s3_conn_id = "minio_default"  # Local MinIO
-
-    # Статистика по шагам обработки
     steps_completed = []
     errors = []
 
     try:
-        # 1. Удаление информации о файле из базы данных
-        print("Шаг 1: удаление записи из Postgres по key")
-        try:
-            delete_operator = DeleteInfoMetadataOperator(
-                task_id=f"delete_info_metadata_{field}",
-                file_name=file_name,
-                bucket=bucket_name,
-                postgres_conn_id="airflow_db",
-            )
-            delete_result = delete_operator.execute({})
-            if delete_result:
-                steps_completed.append('delete_info_metadata')
-            else:
-                steps_completed.append('delete_info_metadata_failed')
-        except Exception as e:
-            steps_completed.append('delete_info_metadata_error')
-            errors.append(f"delete_info_metadata: {str(e)}")
-
-        # 2. Удаление таблицы в StarRocks
-        print("Шаг 2: удаление таблицы в StarRocks")
+        # Drop table in StarRocks
+        print(f"Удаление таблицы в StarRocks: {destination_schema}.{table_name}")
         try:
             drop_operator = StarRocksDropTableOperator(
-                task_id=f"starrocks_truncate_{field}",
+                task_id=f"starrocks_drop_{field}",
                 starrocks_database=destination_schema,
                 starrocks_table=table_name,
                 starrocks_conn_id="starrocks_default",
@@ -396,27 +195,23 @@ def process_missing_file(file_data):
             drop_result = drop_operator.execute({})
             if drop_result:
                 steps_completed.append('drop_table')
-            else:
-                steps_completed.append('drop_table_failed')
         except Exception as e:
             steps_completed.append('drop_table_error')
             errors.append(f"drop_table: {str(e)}")
 
-        # 3. Удаление представления в StarRocks
-        print("Шаг 3: удаление представления в StarRocks")
+        # Drop view in StarRocks
+        print(f"Удаление представления в StarRocks: {destination_schema}.v_{table_name}")
         try:
             drop_view_operator = StarRocksDropViewOperator(
                 task_id=f"starrocks_drop_view_{field}",
                 starrocks_database=destination_schema,
-                starrocks_view="v_"+table_name,
+                starrocks_view="v_" + table_name,
                 starrocks_conn_id="starrocks_default",
                 dag=None,
             )
             drop_view_result = drop_view_operator.execute({})
             if drop_view_result:
                 steps_completed.append('drop_view')
-            else:
-                steps_completed.append('drop_view_failed')
         except Exception as e:
             steps_completed.append('drop_view_error')
             errors.append(f"drop_view: {str(e)}")
@@ -459,12 +254,14 @@ def process_missing_file(file_data):
         }
 
 
-@task
-def summarize_results(changed_results=None, missing_results=None):
+def summarize_results(**context):
     """
     Подвести итоги обработки всех файлов.
     Выводит детальную информацию о каждом обработанном файле.
     """
+    changed_results = context.get('changed_results')
+    missing_results = context.get('missing_results')
+
     # Нормализуем входные результаты из двух веток
     parts = []
     for part in [changed_results, missing_results]:
@@ -643,15 +440,17 @@ with DAG(
     description="DAG для загрузки Financial Forms (Excel) в StarRocks",
 ) as dag:
 
-    # Sensor for monitoring files in VK Cloud S3 (separate from MinIO)
+    # Sensor for monitoring files in VK Cloud S3 (manual data folder)
+    # With PostgreSQL logging enabled for forms_file_metadata tracking
+    # Pattern supports any period descriptor (месяцев, квартал, etc.)
     vk_cloud_sensor = VKCloudS3Sensor(
         task_id="vk_cloud_s3_sensor",
-        s3_buckets=[
-            "rzdm-dev-data-lake",  # VK Cloud bucket with Form 1 and Form 2 files
-        ],
-        s3_prefix="manual-data/",  # Files are in manual-data/ folder
-        s3_conn_id="rzdm_lake_s3",  # VK Cloud S3 connection
-        file_pattern=r'форма.*2025.*\.xls',  # Only financial forms 2025
+        s3_buckets=[BUCKET_NAME],
+        s3_prefix="manual-data/",
+        s3_conn_id="rzdm_lake_s3",
+        file_pattern=r'форма\s*[12].*\d{4}.*\.xls[xmb]?',
+        postgres_conn_id="airflow_db",
+        enable_logging=True,
         poke_interval=15,
         timeout=3600,
         mode="reschedule",
@@ -669,29 +468,33 @@ with DAG(
     )
 
     # Параллельная обработка файлов (dynamic task mapping)
-    process_changed_files = process_changed_file.expand(
-        file_data=get_changed_files_task.output
-    )
+    process_changed_files = PythonOperator.partial(
+        task_id="process_changed_file",
+        python_callable=process_changed_file,
+    ).expand(op_kwargs=get_changed_files_task.output.map(lambda f: {'file_data': f}))
 
-    process_missing_files = process_missing_file.expand(
-        file_data=get_missing_files_task.output
-    )
+    process_missing_files = PythonOperator.partial(
+        task_id="process_missing_file",
+        python_callable=process_missing_file,
+    ).expand(op_kwargs=get_missing_files_task.output.map(lambda f: {'file_data': f}))
 
     # Подведение итогов (передаём список XComArg, без конкатенации операторов)
-    summarize_task = summarize_results.override(
+    summarize_task = PythonOperator(
         task_id="summarize_results",
+        python_callable=summarize_results,
+        op_kwargs={
+            'changed_results': process_changed_files.output,
+            'missing_results': process_missing_files.output,
+        },
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
-    )(
-        changed_results=process_changed_files,
-        missing_results=process_missing_files,
     )
 
     # Run dbt models after data load
     dbt_run_financial = BashOperator(
         task_id="dbt_run_financial",
-        bash_command="""
+        bash_command=f"""
         cd /opt/airflow/dbt/financial_dbt_project && \
-        dbt run --profiles-dir . --target rzdm_rdv
+        dbt run --profiles-dir . --target rzdm_rdv --vars '{{"bucket_name": "{BUCKET_NAME_CLEAN}"}}'
         """,
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
     )

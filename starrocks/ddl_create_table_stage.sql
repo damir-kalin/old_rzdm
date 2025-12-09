@@ -9,7 +9,7 @@ USE stage
 -- ============================================================================
 -- 1. H_SCHEDULE Стационар. История пребывания пациентов (интервалы лежания) по местам, палатам и отделениям
 -- ============================================================================
-drop table MIS_H_SCHEDULE;
+drop table if exists stage.MIS_H_SCHEDULE;
 CREATE TABLE MIS_H_SCHEDULE (
        HSID  BIGINT NOT NULL COMMENT 'Идентификатор интервала лежания. Генератор [HSID_GEN]',
     load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP,    
@@ -59,7 +59,7 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_H_SCHEDULE
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_H_SCHEDULE
 AS SELECT *
 from default_catalog.stage.MIS_H_SCHEDULE;
 
@@ -67,7 +67,7 @@ from default_catalog.stage.MIS_H_SCHEDULE;
 -- ============================================================================
 -- 2. CHAIRS Структура клиники. Справочник рабочих мест.
 -- ============================================================================
-drop table MIS_CHAIRS;
+drop table if exists stage.MIS_CHAIRS;
 CREATE TABLE MIS_CHAIRS (
 CHID	BIGINT NOT NULL COMMENT 'Идентификатор.  Генератор [SPRAV_GEN]'
 , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -134,7 +134,7 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_CHAIRS
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_CHAIRS
 AS SELECT *
 from default_catalog.stage.MIS_CHAIRS;
 
@@ -142,7 +142,7 @@ from default_catalog.stage.MIS_CHAIRS;
 -- ============================================================================
 -- 3. ROOMS Структура клиники. Справочник кабинетов (палат).
 -- ============================================================================
-drop table MIS_ROOMS;
+drop table if exists stage.MIS_ROOMS;
  CREATE TABLE MIS_ROOMS (
   RID BIGINT NOT NULL COMMENT 'Идентификатор  кабинета. Генератор [SPRAV_GEN]'
 , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP  
@@ -219,14 +219,14 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_ROOMS
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_ROOMS
 AS SELECT *
 from default_catalog.stage.MIS_ROOMS;
 
 -- ============================================================================
 -- 4. ROOMGRMAIN Структура клиники. Состав группы палат
 -- ============================================================================
-drop table MIS_ROOMGRMAIN;
+drop table if exists stage.MIS_ROOMGRMAIN;
  CREATE TABLE MIS_ROOMGRMAIN(
 GRRID BIGINT NOT NULL COMMENT 'Идентификатор  группы палат. Генератор [SPRAV_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP  
@@ -262,7 +262,7 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_ROOMGRMAIN
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_ROOMGRMAIN
 AS SELECT *
 from default_catalog.stage.MIS_ROOMGRMAIN;
 
@@ -270,7 +270,7 @@ from default_catalog.stage.MIS_ROOMGRMAIN;
 -- 5. ROOMGROUP Структура клиники. Группы палат
 -- ============================================================================
 
-drop table MIS_ROOMGROUP;
+drop table if exists stage.MIS_ROOMGROUP;
  CREATE TABLE MIS_ROOMGROUP(
  GROUPID BIGINT NOT NULL COMMENT 'Идентификатор  группы палат. Генератор [SPRAV_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -307,7 +307,7 @@ PROPERTIES (
 );
 
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_ROOMGROUP
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_ROOMGROUP
 AS SELECT *
 from default_catalog.stage.MIS_ROOMGROUP;
 
@@ -315,7 +315,7 @@ from default_catalog.stage.MIS_ROOMGROUP;
 -- 6. MIS_STAT_DEPARTMENTS Стационар. Стационарные отделения
 -- ============================================================================
 
-drop table MIS_STAT_DEPARTMENTS;
+drop table if exists stage.MIS_STAT_DEPARTMENTS;
  CREATE TABLE MIS_STAT_DEPARTMENTS(
 SDEPID	BIGINT NOT NULL COMMENT 'Идентификатор  стационарного отделения. Генератор [PROFOSMOTR_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -361,7 +361,7 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_STAT_DEPARTMENTS
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_STAT_DEPARTMENTS
 AS SELECT *
 from default_catalog.stage.MIS_STAT_DEPARTMENTS;
 
@@ -370,7 +370,7 @@ from default_catalog.stage.MIS_STAT_DEPARTMENTS;
 -- ============================================================================
 
 
-drop table  MIS_DOCTOR
+drop table if exists stage.MIS_DOCTOR
 
 CREATE TABLE MIS_DOCTOR (
     DCODE BIGINT NOT NULL COMMENT 'Идентификатор доктора (первичный ключ)',
@@ -544,7 +544,7 @@ PROPERTIES (
 "fast_schema_evolution" = "true"
 );
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_DOCTOR
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_DOCTOR
 AS SELECT *
 from default_catalog.stage.MIS_DOCTOR;
 
@@ -552,7 +552,7 @@ from default_catalog.stage.MIS_DOCTOR;
 -- 8. MIS_MIS_BUILDINGSDOCTOR
 -- ============================================================================
 
-drop table MIS_BUILDINGS
+drop table if exists stage.MIS_BUILDINGS
 CREATE TABLE `MIS_BUILDINGS` (
 `IDBUILD` bigint(20) NOT NULL COMMENT "Идентификатор корпуса. Генератор [SPRAV_GEN]",
   load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP, 
@@ -583,6 +583,6 @@ COMMENT "OLAP"
 DISTRIBUTED BY HASH(`IDBUILD`) BUCKETS 1 
 order by (IDBUILD, load_dttm) 
 
-CREATE TABLE IF NOT EXISTS iceberg.rzdm_test.MIS_BUILDINGS
+CREATE TABLE IF NOT EXISTS iceberg.rzdm.MIS_BUILDINGS
 AS SELECT *
 from default_catalog.stage.MIS_BUILDINGS;
