@@ -32,7 +32,8 @@ class VKTableManager:
         self,
         table_name: str,
         columns: List[str],
-        column_type: str = "VARCHAR(65333)"
+        column_types: dict = None,
+        default_column_type: str = "VARCHAR(65333)"
     ):
         """
         Создает таблицу, если она не существует.
@@ -40,7 +41,8 @@ class VKTableManager:
         Args:
             table_name: Имя таблицы
             columns: Список имен колонок
-            column_type: Тип данных для всех колонок
+            column_types: Словарь {имя_колонки: тип_данных} для индивидуальных типов
+            default_column_type: Тип данных по умолчанию для колонок без указанного типа
         """
         hook = MySqlHook(mysql_conn_id=self.mysql_conn_id)
         conn = hook.get_conn()
@@ -50,9 +52,9 @@ class VKTableManager:
             # Escape database and table names with backticks
             full_table_name = f"`{self.database}`.`{table_name}`"
 
-            # Экранируем имена колонок
+            # Экранируем имена колонок и используем индивидуальные типы если указаны
             columns_def = ', '.join([
-                f"`{col.replace('`', '``')}` {column_type}"
+                f"`{col.replace('`', '``')}` {column_types.get(col, default_column_type) if column_types else default_column_type}"
                 for col in columns
             ])
 

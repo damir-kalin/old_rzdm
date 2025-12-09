@@ -82,8 +82,10 @@ def get_column_types(df: pd.DataFrame) -> dict:
                 result[col] = "decimal(38, 10) NULL"
             continue
 
-        # String - use max varchar size
-        result[col] = "varchar(65333) NULL"
+        # String - calculate max length with buffer
+        str_values = non_null.astype(str)
+        max_len = str_values.map(len).max()
+        result[col] = f"varchar({max_len + 1000}) NULL"
 
     return result
 
@@ -306,6 +308,7 @@ class Template2Operator(StarRocksConnectionMixin, VKCloudFileStatusMixin, BaseHo
         self.table_manager.create_table_if_not_exists(
             table_name=self.starrocks_table,
             columns=columns,
+            column_types=column_types,
         )
 
         converter = StarRocksDataConverter(logger=self.log)

@@ -551,12 +551,14 @@ with DAG(
     process_changed_files = PythonOperator.partial(
         task_id="process_changed_file",
         python_callable=process_changed_file,
+        max_active_tis_per_dagrun=2,
     ).expand(op_kwargs=get_changed_files_task.output.map(lambda f: {'file_data': f}))
 
     # Process missing files (dynamic task mapping)
     process_missing_files = PythonOperator.partial(
         task_id="process_missing_file",
         python_callable=process_missing_file,
+        max_active_tis_per_dagrun=2,
     ).expand(op_kwargs=get_missing_files_task.output.map(lambda f: {'file_data': f}))
 
     # Summarize results
