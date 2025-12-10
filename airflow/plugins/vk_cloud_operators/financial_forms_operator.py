@@ -534,7 +534,8 @@ class FinancialFormsOperator(StarRocksConnectionMixin, VKCloudFileStatusMixin, B
                     '5': 'На 31 декабря позапрошлого года',
                     'Период': 'Отчетный период',
                     'Тип отчета': 'Название отчета',
-                    'Еденица измерения': 'Единица измерения'
+                    'Еденица измерения': 'Единица измерения',
+                    'Вид экономической деятельности': 'Вид экономической деятельности'
                 })
                 union_df['АКТИВ'] = union_df['АКТИВ'].str.strip()
                 union_df['На текущий год'] = union_df['На текущий год'].astype(str).str.replace(' ', '', regex=False).str.replace(',', '.', regex=False).replace('nan', np.nan).astype(float)
@@ -567,6 +568,45 @@ class FinancialFormsOperator(StarRocksConnectionMixin, VKCloudFileStatusMixin, B
             union_df['raw_file_name'] = raw_file_name
             union_df['file_name'] = file_name
             union_df['s3_placement'] = pd.Timestamp.now()
+
+            # Reorder columns to match DDL
+            if form_type == 'form_1':
+                column_order = [
+                    'АКТИВ',
+                    'Код показателя',
+                    'На текущий год',
+                    'На 31 декабря прошлого года',
+                    'На 31 декабря позапрошлого года',
+                    'Отчетный период',
+                    'Единица измерения',
+                    'Название отчета',
+                    'Организация',
+                    'Вид экономической деятельности',
+                    'file_id',
+                    'user_name',
+                    'raw_file_name',
+                    'file_name',
+                    's3_placement'
+                ]
+            else:  # form_2
+                column_order = [
+                    'Показатель',
+                    'Код',
+                    'За текущий период',
+                    'За текущий период прошлого года',
+                    'Отчетный период',
+                    'Единица измерения',
+                    'Название отчета',
+                    'Организация',
+                    'file_id',
+                    'user_name',
+                    'raw_file_name',
+                    'file_name',
+                    's3_placement'
+                ]
+
+            # Reorder DataFrame columns
+            union_df = union_df[column_order]
 
             self.log.info(f"Final DataFrame shape: {union_df.shape}")
 

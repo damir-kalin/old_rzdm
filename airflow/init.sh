@@ -25,40 +25,40 @@ airflow connections add rzdm_indefinite_s3 \
 --conn-type 'aws' \
 --conn-login 'INDEFINITE_ACCESS_KEY' \
 --conn-password 'INDEFINITE_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_infoclinic_s3 \
 --conn-type 'aws' \
 --conn-login 'INFOCLINIC_ACCESS_KEY' \
 --conn-password 'INFOCLINIC_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_asb_s3 \
 --conn-type 'aws' \
 --conn-login 'ASB_ACCESS_KEY' \
 --conn-password 'ASB_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_asckz_s3 \
 --conn-type 'aws' \
 --conn-login 'ASCKZ_ACCESS_KEY' \
 --conn-password 'ASCKZ_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_kuirzp_s3 \
 --conn-type 'aws' \
 --conn-login 'KUIRZP_ACCESS_KEY' \
 --conn-password 'KUIRZP_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_nsi_s3 \
 --conn-type 'aws' \
 --conn-login 'NSI_ACCESS_KEY' \
 --conn-password 'NSI_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'
 
 airflow connections add rzdm_buinu_s3 \
 --conn-type 'aws' \
 --conn-login 'BUINU_ACCESS_KEY' \
 --conn-password 'BUINU_SECRET_KEY' \
---conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcs.cloud", "region_name": "ru-msk"}'
+--conn-extra '{"endpoint_url": "https://hb.ru-msk.vkcloud-storage.ru", "region_name": "ru-msk"}'

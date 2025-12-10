@@ -30,13 +30,13 @@ DEFAULT_ARGS = {
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
-    "retry_delay": timedelta(seconds=120),
+    "retry_delay": timedelta(seconds=360),
 }
 
 # Создадим объект класса DAG
 dag =  DAG('mis_loader_with_parms'
            , default_args=DEFAULT_ARGS
-           , schedule=timedelta(seconds=120)
+           , schedule=timedelta(seconds=360)
            , tags=['mis_parser']
            , max_active_runs=1
            , description="DAG для загрузки данных из MIS Kafka в StarRocks"
@@ -62,7 +62,7 @@ def fetch_data_from_kafka(topic_name, **kwargs):
 
     topic_name = topic_name.strip()
 
-    env = kwargs['dag_run'].conf.get('ENV_param', '')
+    env = kwargs['dag_run'].conf.get('ENV_param', 'TEST')
 
     if env is None:
         env = ''
@@ -79,7 +79,16 @@ def fetch_data_from_kafka(topic_name, **kwargs):
                                sasl_plain_password='Q1w2e3r+',
                                #group_id='$group',
                                auto_offset_reset='earliest',
-                               enable_auto_commit=False)   
+                               enable_auto_commit=False)
+    elif env == 'PROD':
+        consumer = KafkaConsumer(bootstrap_servers=['10.216.227.210:30092', '10.216.227.213:30093', '10.216.227.248:30094', '10.216.227.211:30080', '10.216.227.249:30432'],
+                               sasl_mechanism='PLAIN',
+                               security_protocol='SASL_PLAINTEXT',
+                               sasl_plain_username='admin',
+                               sasl_plain_password='Q1w2e3r+',
+                               #group_id='$group',
+                               auto_offset_reset='earliest',
+                               enable_auto_commit=False)       
     elif env == 'DEV':
         consumer = KafkaConsumer(bootstrap_servers=['10.216.237.50:30092', '10.216.237.34:30093', '10.216.237.32:30094'],
                                sasl_mechanism='PLAIN',

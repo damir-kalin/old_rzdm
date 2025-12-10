@@ -110,10 +110,10 @@ def get_changed_files(**context):
     # Filter to Template 2 files only
     template2_files = [f for f in changed_files if is_template2_file(f['file_name'])]
 
-    # Limit to first 10 files to avoid XCom size limit
-    if len(template2_files) > 10:
-        print(f"WARNING: {len(template2_files)} Template 2 files detected, limiting to first 10")
-        return template2_files[:10]
+    # Limit to first 50 files to avoid XCom size limit
+    if len(template2_files) > 50:
+        print(f"WARNING: {len(template2_files)} Template 2 files detected, limiting to first 50")
+        return template2_files[:50]
 
     return template2_files
 
@@ -130,10 +130,10 @@ def get_missing_files(**context):
     # Filter to Template 2 files only
     template2_files = [f for f in missing_files if is_template2_file(f['file_name'])]
 
-    # Limit to first 10 files
-    if len(template2_files) > 10:
-        print(f"WARNING: {len(template2_files)} missing Template 2 files, limiting to first 10")
-        return template2_files[:10]
+    # Limit to first 50 files
+    if len(template2_files) > 50:
+        print(f"WARNING: {len(template2_files)} missing Template 2 files, limiting to first 50")
+        return template2_files[:50]
 
     return template2_files
 
