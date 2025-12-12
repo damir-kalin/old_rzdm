@@ -1,0 +1,102 @@
+{{ 
+  config(
+    alias='link_rdv__ind_value_type',
+    materialized='incremental',
+    unique_key='link_ind_value_type_pk',
+    table_type='PRIMARY',
+    keys=['link_ind_value_type_pk'],
+    buckets=3,
+    enabled=true,
+    properties={
+      'replication_num': '1'
+    }
+  )
+}}
+
+-- Link между показателем и типом значения
+-- PK формируется как MD5(hub_ind_pk|hub_value_type_pk)
+-- Incremental модель: добавляются только новые записи с load_dttm больше максимального в таблице
+
+WITH staging_normalized AS (
+  SELECT
+    TRIM(REPLACE(s.unit_name, CHAR(160), '')) as unit_name_norm,
+    TRIM(REPLACE(s.data_type, CHAR(160), '')) as data_type_norm,
+    TRIM(REPLACE(s.discreteness, CHAR(160), '')) as discreteness_norm,
+    TRIM(REPLACE(s.value_type, CHAR(160), '')) as value_type_norm,
+    TRIM(REPLACE(s.org_name, CHAR(160), '')) as org_name_norm,
+    TRIM(REPLACE(s.eat_name, CHAR(160), '')) as eat_name_norm,
+    TRIM(REPLACE(s.asset_name, CHAR(160), '')) as asset_name_norm,
+    TRIM(REPLACE(s.ind_code, CHAR(160), '')) as ind_code_norm,
+    MAX(s.load_dttm) as load_dttm,
+    ANY_VALUE(s.source_nm) as source_nm
+  FROM stage.stg_source_data s
+  WHERE s.ind_code IS NOT NULL
+    AND s.value_type IS NOT NULL
+    AND s.unit_name IS NOT NULL
+    AND s.data_type IS NOT NULL
+    AND s.discreteness IS NOT NULL
+    AND s.org_name IS NOT NULL 
+    AND s.eat_name IS NOT NULL 
+    AND s.asset_name IS NOT NULL
+  {% if is_incremental() %}
+    AND s.load_dttm > (SELECT COALESCE(MAX(load_dttm), '1900-01-01') FROM {{ this }})
+  {% endif %}
+  GROUP BY
+    TRIM(REPLACE(s.unit_name, CHAR(160), '')),
+    TRIM(REPLACE(s.data_type, CHAR(160), '')),
+    TRIM(REPLACE(s.discreteness, CHAR(160), '')),
+    TRIM(REPLACE(s.value_type, CHAR(160), '')),
+    TRIM(REPLACE(s.org_name, CHAR(160), '')),
+    TRIM(REPLACE(s.eat_name, CHAR(160), '')),
+    TRIM(REPLACE(s.asset_name, CHAR(160), '')),
+    TRIM(REPLACE(s.ind_code, CHAR(160), ''))
+),
+
+links_with_hubs AS (
+  SELECT
+    hi.hub_ind_pk,
+    hvt.value_type_hk as hub_value_type_pk,
+    s.load_dttm,
+    s.source_nm
+  FROM staging_normalized s
+  INNER JOIN {{ ref('hub_rdv__ind') }} hi ON hi.hub_ind_bk = CONCAT_WS('|', 
+    s.unit_name_norm,
+    s.data_type_norm,
+    s.discreteness_norm,
+    s.value_type_norm,
+    s.org_name_norm,
+    s.eat_name_norm,
+    s.asset_name_norm,
+    s.ind_code_norm
+  )
+  INNER JOIN {{ source('unverified_rdv', 'hub_rdv__value_type') }} hvt ON hvt.fullname = s.value_type_norm
+),
+
+link_data AS (
+  SELECT
+    MD5(CONCAT_WS('|', CAST(hub_ind_pk AS CHAR), CAST(hub_value_type_pk AS CHAR))) as link_ind_value_type_pk,
+    hub_ind_pk,
+    hub_value_type_pk,
+    load_dttm,
+    source_nm
+  FROM links_with_hubs
+),
+
+deduplicated_links AS (
+  SELECT
+    link_ind_value_type_pk,
+    hub_ind_pk,
+    hub_value_type_pk,
+    MAX(load_dttm) as load_dttm,
+    ANY_VALUE(source_nm) as source_nm
+  FROM link_data
+  GROUP BY link_ind_value_type_pk, hub_ind_pk, hub_value_type_pk
+)
+
+SELECT
+  link_ind_value_type_pk,
+  hub_ind_pk,
+  hub_value_type_pk,
+  load_dttm,
+  source_nm
+FROM deduplicated_links

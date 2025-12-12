@@ -1,16 +1,16 @@
 -- ============================================================================
 -- DDL для кадровых таблиц
 -- ============================================================================
-SET CATALOG default_catalog
+SET CATALOG default_catalog;
 
 --USE main_rdv
 
-USE main_rdv
+USE unverified_rdv;
 
 -- ============================================================================
 -- 1. H_SCHEDULE Стационар. История пребывания пациентов (интервалы лежания) по местам, палатам и отделениям
 -- ============================================================================
-drop TABLE  sat_rdv_MIS__H_SCHEDULE;
+drop TABLE if exists unverified_rdv.sat_rdv_MIS__H_SCHEDULE;
 CREATE TABLE sat_rdv_MIS__H_SCHEDULE (
     HSID  BIGINT NOT NULL COMMENT 'Идентификатор интервала лежания. Генератор [HSID_GEN]',
     load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP,    
@@ -64,7 +64,7 @@ PROPERTIES (
 -- ============================================================================
 -- 2. CHAIRS Структура клиники. Справочник рабочих мест.
 -- ============================================================================
-drop TABLE  sat_rdv_MIS__CHAIRS;
+drop TABLE if exists unverified_rdv.sat_rdv_MIS__CHAIRS;
 CREATE TABLE sat_rdv_MIS__CHAIRS (
 CHID	BIGINT NOT NULL COMMENT 'Идентификатор.  Генератор [SPRAV_GEN]'
 , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -135,7 +135,7 @@ PROPERTIES (
 -- ============================================================================
 -- 3. ROOMS Структура клиники. Справочник кабинетов (палат).
 -- ============================================================================
-drop table sat_rdv_MIS__ROOMS;
+drop table if exists unverified_rdv.sat_rdv_MIS__ROOMS;
  CREATE TABLE sat_rdv_MIS__ROOMS (
  RID BIGINT NOT NULL COMMENT 'Идентификатор  кабинета. Генератор [SPRAV_GEN]'
 , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP  
@@ -215,7 +215,7 @@ PROPERTIES (
 -- ============================================================================
 -- 4. ROOMGRMAIN Структура клиники. Состав группы палат
 -- ============================================================================
-drop TABLE sat_rdv_MIS__ROOMGRMAIN;
+drop table if exists unverified_rdv.sat_rdv_MIS__ROOMGRMAIN;
  CREATE TABLE sat_rdv_MIS__ROOMGRMAIN(
  GRRID BIGINT NOT NULL COMMENT 'Идентификатор  группы палат. Генератор [SPRAV_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP  
@@ -256,7 +256,7 @@ PROPERTIES (
 -- 5. ROOMGROUP Структура клиники. Группы палат
 -- ============================================================================
 
-drop table sat_rdv_MIS__ROOMGROUP;
+drop table if exists unverified_rdv.sat_rdv_MIS__ROOMGROUP;
  CREATE TABLE sat_rdv_MIS__ROOMGROUP(
  GROUPID BIGINT NOT NULL COMMENT 'Идентификатор  группы палат. Генератор [SPRAV_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -297,7 +297,7 @@ PROPERTIES (
 -- 6. MIS_STAT_DEPARTMENTS Стационар. Стационарные отделения
 -- ============================================================================
 
-drop table sat_rdv_MIS__STAT_DEPARTMENTS;
+drop table if exists unverified_rdv.sat_rdv_MIS__STAT_DEPARTMENTS;
  CREATE TABLE sat_rdv_MIS__STAT_DEPARTMENTS(
 SDEPID	BIGINT NOT NULL COMMENT 'Идентификатор  стационарного отделения. Генератор [PROFOSMOTR_GEN]'
     , load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP 
@@ -347,7 +347,7 @@ PROPERTIES (
 -- 7. DOCTOR
 -- ============================================================================
 
-drop table sat_rdv_MIS__DOCTOR;
+drop table if exists unverified_rdv.sat_rdv_MIS__DOCTOR;
 CREATE TABLE sat_rdv_MIS__DOCTOR (
     DCODE BIGINT NOT NULL COMMENT 'Идентификатор доктора (первичный ключ)',
     load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP, 
@@ -526,7 +526,7 @@ PROPERTIES (
 -- 7.BUILDINGS
 -- ============================================================================
 
-drop table sat_rdv_MIS__BUILDINGS
+drop table if exists unverified_rdv.sat_rdv_MIS__BUILDINGS;
 CREATE TABLE `sat_rdv_MIS__BUILDINGS` (
 `IDBUILD` bigint(20) NOT NULL COMMENT "Идентификатор корпуса. Генератор [SPRAV_GEN]",
     load_dttm DATETIME  DEFAULT CURRENT_TIMESTAMP, 

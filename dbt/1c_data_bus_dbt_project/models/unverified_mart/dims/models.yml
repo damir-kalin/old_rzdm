@@ -1,0 +1,203 @@
+version: 2
+
+models:
+  - name: dim_mart__contractor_debt
+    description: "Измерение задолженности контрагентов. Представление на основе хаба задолженности контрагентов."
+    columns:
+      - name: contractor_debt_hk
+        description: "Суррогатный ключ (Hub Key) для задолженности контрагента"
+        tests:
+          - not_null
+      - name: organization
+        description: "Наименование организации"
+      - name: organization_inn
+        description: "ИНН организации"
+      - name: organization_kpp
+        description: "КПП организации"
+      - name: organization_mdm_key
+        description: "MDM ключ организации"
+      - name: counterparty
+        description: "Наименование контрагента"
+      - name: counterparty_inn
+        description: "ИНН контрагента"
+      - name: counterparty_kpp
+        description: "КПП контрагента"
+      - name: counterparty_mdm_key
+        description: "MDM ключ контрагента"
+      - name: contract
+        description: "Номер договора"
+      - name: amount_owed
+        description: "Сумма задолженности"
+      - name: timestamp
+        description: "Временная метка задолженности"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: dim_mart__contractors
+    description: "Измерение контрагентов. Представление на основе хаба контрагентов."
+    columns:
+      - name: contractors_hk
+        description: "Суррогатный ключ (Hub Key) для контрагента"
+        tests:
+          - not_null
+      - name: uid
+        description: "Уникальный идентификатор контрагента"
+      - name: guid
+        description: "Глобальный уникальный идентификатор контрагента"
+      - name: uid_search_string
+        description: "Строка поиска по UID"
+      - name: inn
+        description: "ИНН контрагента"
+      - name: kpp
+        description: "КПП контрагента"
+      - name: ogrn
+        description: "ОГРН контрагента"
+      - name: polnoe_naimenovanie
+        description: "Полное наименование контрагента"
+      - name: sokrashchennoe_naimenovanie
+        description: "Сокращенное наименование контрагента"
+      - name: mezhdunarodnoe_naimenovanie
+        description: "Международное наименование контрагента"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: dim_mart__employees
+    description: "Измерение сотрудников. Представление на основе хаба сотрудников."
+    columns:
+      - name: employees_hk
+        description: "Суррогатный ключ (Hub Key) для сотрудника"
+        tests:
+          - not_null
+      - name: organization
+        description: "Наименование организации"
+      - name: organization_inn
+        description: "ИНН организации"
+      - name: organization_kpp
+        description: "КПП организации"
+      - name: organization_mdm_key
+        description: "MDM ключ организации"
+      - name: division
+        description: "Наименование подразделения"
+      - name: division_mdm_key
+        description: "MDM ключ подразделения"
+      - name: employee
+        description: "ФИО сотрудника"
+      - name: table_number
+        description: "Табельный номер сотрудника"
+      - name: post
+        description: "Должность сотрудника"
+      - name: gender
+        description: "Пол сотрудника"
+      - name: type_of_employment
+        description: "Тип занятости"
+      - name: timestamp
+        description: "Временная метка записи"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: dim_mart__forms
+    description: "Измерение форм отчетности. Представление на основе хаба форм отчетности."
+    columns:
+      - name: forms_hk
+        description: "Суррогатный ключ (Hub Key) для формы отчетности"
+        tests:
+          - not_null
+      - name: orgname
+        description: "Наименование организации"
+      - name: orginn
+        description: "ИНН организации"
+      - name: orgkpp
+        description: "КПП организации"
+      - name: kodform
+        description: "Код формы отчетности"
+      - name: period1
+        description: "Начало периода отчетности"
+      - name: period2
+        description: "Конец периода отчетности"
+      - name: kodstr
+        description: "Код строки формы"
+      - name: kodkol
+        description: "Код колонки формы"
+      - name: summa
+        description: "Сумма по строке и колонке"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: dim_mart__kpi
+    description: "Измерение KPI показателей. Представление на основе хаба KPI показателей."
+    columns:
+      - name: kpi_hk
+        description: "Суррогатный ключ (Hub Key) для KPI показателя"
+        tests:
+          - not_null
+      - name: orgname
+        description: "Наименование организации"
+      - name: orginn
+        description: "ИНН организации"
+      - name: orgogrn
+        description: "ОГРН организации"
+      - name: kodform
+        description: "Код формы отчетности"
+      - name: nameform
+        description: "Наименование формы отчетности"
+      - name: period1
+        description: "Начало периода отчетности"
+      - name: period2
+        description: "Конец периода отчетности"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: nomstroki
+        description: "Номер строки в форме"
+      - name: nom_pokazatelya
+        description: "Номер показателя"
+      - name: naimenovanie_chuz
+        description: "Наименование ЧУЗ"
+      - name: naimenovanie_gruppy
+        description: "Наименование группы показателей"
+      - name: naimenovanie_pokazatelya
+        description: "Наименование показателя"
+      - name: kategoriya
+        description: "Категория показателя"
+      - name: edinitsa_izmereniya
+        description: "Единица измерения"
+      - name: plan
+        description: "Плановое значение показателя"
+      - name: fakt
+        description: "Фактическое значение показателя"
+      - name: protsent_vypolneniya
+        description: "Процент выполнения показателя"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: dim_mart__organizations
+    description: "Измерение организаций. Представление на основе хаба организаций."
+    columns:
+      - name: organizations_hk
+        description: "Суррогатный ключ (Hub Key) для организации"
+        tests:
+          - not_null
+      - name: inn
+        description: "ИНН организации"
+      - name: kpp
+        description: "КПП организации"
+      - name: ogrn
+        description: "ОГРН организации"
+      - name: naimenovanie_organizatsii
+        description: "Наименование организации"
+      - name: polnoe_naimenovanie
+        description: "Полное наименование организации"
+      - name: naimenovanie_sokrashchennoe
+        description: "Сокращенное наименование организации"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+

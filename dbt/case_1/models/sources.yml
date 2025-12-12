@@ -1,0 +1,101 @@
+version: 2
+
+sources:
+  - name: excel_forms
+    description: "Источники данных из Excel файлов form_1 и form_2"
+    schema: stage
+    tables:
+      - name: form_1
+        description: "Данные из form_1.xlsx - Бухгалтерский баланс"
+        columns:
+          - name: АКТИВ
+            description: "Название актива/показателя"
+          - name: Код показателя
+            description: "Код показателя (текстовый формат)"
+          - name: Значение
+            description: "Числовое значение показателя"
+          - name: Период
+            description: "Текстовое описание периода"
+          - name: Тип отчета
+            description: "Тип отчета (БУХГАЛТЕРСКИЙ БАЛАНС)"
+          - name: Организация
+            description: "Название организации"
+          - name: Вид экономической деятельности
+            description: "Вид экономической деятельности"
+          - name: Еденица измерения
+            description: "Единица измерения"
+          - name: Квартал
+            description: "Номер квартала"
+          - name: Год
+            description: "Год"
+          - name: Тип значения
+            description: "Тип значения (Нарастающий итог / Итог)"
+          - name: Тип данных
+            description: "Тип данных (Утвержденный)"
+          - name: Метрика
+            description: "Метрика (Факт)"
+          - name: Дискретность
+            description: "Дискретность (Квартал)"
+      
+      - name: form_2
+        description: "Данные из form_2.xlsx - Отчет о финансовых результатах"
+        columns:
+          - name: Наименование показателя
+            description: "Название показателя"
+          - name: Код
+            description: "Код показателя (числовой формат)"
+          - name: Значение
+            description: "Числовое значение показателя"
+          - name: Период
+            description: "Текстовое описание периода"
+          - name: Тип отчета
+            description: "Тип отчета (ОТЧЕТ О ФИНАНСОВЫХ РЕЗУЛЬТАТАХ)"
+          - name: Организация
+            description: "Название организации"
+          - name: Вид экономической деятельности
+            description: "Вид экономической деятельности"
+          - name: Еденица измерения
+            description: "Единица измерения"
+          - name: Квартал
+            description: "Номер квартала"
+          - name: Год
+            description: "Год"
+          - name: Тип значения
+            description: "Тип значения (Нарастающий итог по кварталам с начала года)"
+          - name: Тип данных
+            description: "Тип данных (Утвержденный)"
+          - name: Метрика
+            description: "Метрика (Факт)"
+          - name: Дискретность
+            description: "Дискретность (Квартал)"
+
+  - name: unverified_rdv
+    description: "Сырые таблицы Raw Data Vault (RDV)"
+    schema: unverified_rdv
+    tables:
+      - name: hub_rdv__asset
+        description: "Хаб активов (существующая таблица в БД)"
+      - name: hub_rdv__data_type
+        description: "Хаб типов данных (существующая таблица в БД)"
+      - name: hub_rdv__date_type
+        description: "Хаб типов дат (существующая таблица в БД)"
+      - name: hub_rdv__economic_activity_type
+        description: "Хаб видов экономической деятельности (существующая таблица в БД)"
+      - name: hub_rdv__organisation
+        description: "Хаб организаций (существующая таблица в БД)"
+      - name: hub_rdv__unit
+        description: "Хаб единиц измерения (существующая таблица в БД)"
+      - name: hub_rdv__value_type
+        description: "Хаб типов значений (существующая таблица в БД)"
+      - name: hub_rdv__metric
+        description: "Хаб метрик (существующая таблица в БД)"
+      - name: hub_rdv__accounting_fin_indicator
+        description: "Учетно-финансовый показатель (существующая таблица в БД)"
+
+  - name: unverified_bdv
+    description: "Сырые таблицы Business Data Vault (BDV)"
+    schema: unverified_bdv
+    tables:
+      - name: hub_bdv__business_term
+        description: "Хаб бизнес-терминов (существующая таблица в БД unverified_bdv)"
+

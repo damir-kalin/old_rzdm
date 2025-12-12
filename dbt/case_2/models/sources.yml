@@ -1,0 +1,160 @@
+version: 2
+
+sources:
+  - name: unverified_rdv
+    description: "Источники данных для Template 2"
+    schema: unverified_rdv
+    tables:
+      - name: stg_source_data_2
+        description: "Staging таблица с данными из Template 2 Excel файлов"
+        columns:
+          - name: file_row_number
+            description: "Номер строки в файле"
+          - name: file_code
+            description: "Код файла"
+          - name: file_name_original
+            description: "Оригинальное имя файла"
+          - name: value_amt
+            description: "Значение показателя"
+          - name: period_dt
+            description: "Дата периода"
+          - name: unit_name
+            description: "Единица измерения"
+          - name: data_type
+            description: "Тип данных"
+          - name: metric
+            description: "Метрика"
+          - name: discreteness
+            description: "Дискретность"
+          - name: value_type
+            description: "Тип значения"
+          - name: hub_ind_bk_base
+            description: "Базовый Business Key для hub_ind"
+          - name: hub_ind_bk_dynamic
+            description: "Динамическая часть Business Key для hub_ind"
+      - name: hub_rdv__training_type
+        description: "Hub справочника видов обучения"
+        columns:
+          - name: code
+            description: "PK хаба вида обучения"
+          - name: training_type_hk
+            description: "HK вида обучения (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__unit
+        description: "Hub справочника единиц измерения"
+        columns:
+          - name: code
+            description: "PK хаба единицы измерения"
+          - name: unit_hk
+            description: "HK единицы измерения (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__employee_accounting_options
+        description: "Hub справочника опций учета сотрудников (КДР13)"
+        columns:
+          - name: code
+            description: "PK хаба опций учета сотрудников"
+          - name: employee_accounting_options_hk
+            description: "HK опций учета сотрудников (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__accounting_fin_indicator
+        description: "Hub справочника учетно-финансовых показателей"
+        columns:
+          - name: code
+            description: "PK хаба учетно-финансового показателя"
+          - name: accounting_fin_indicator_hk
+            description: "HK учетно-финансового показателя (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__age_group
+        description: "Hub справочника возрастных групп"
+        columns:
+          - name: code
+            description: "PK хаба возрастной группы"
+          - name: age_group_hk
+            description: "HK возрастной группы (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__data_type
+        description: "Hub справочника типов данных"
+        columns:
+          - name: code
+            description: "PK хаба типа данных"
+          - name: data_type_hk
+            description: "HK типа данных (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__date_type
+        description: "Hub справочника типов даты (Дискретность)"
+        columns:
+          - name: code
+            description: "PK хаба типа даты"
+          - name: date_type_hk
+            description: "HK типа даты (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__metric
+        description: "Hub справочника метрик"
+        columns:
+          - name: code
+            description: "PK хаба метрики"
+          - name: metric_hk
+            description: "HK метрики (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__organisation
+        description: "Hub справочника организаций"
+        columns:
+          - name: code
+            description: "PK хаба организации"
+          - name: organisation_hk
+            description: "HK организации (нормализованный)"
+          - name: fullname
+            description: "Полное наименование организации"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__personnel_category
+        description: "Hub справочника категорий персонала"
+        columns:
+          - name: code
+            description: "PK хаба категории персонала"
+          - name: personnel_category_hk
+            description: "HK категории персонала (нормализованный)"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+      - name: hub_rdv__value_type
+        description: "Hub справочника типов значения"
+        columns:
+          - name: code
+            description: "PK хаба типа значения"
+          - name: value_type_hk
+            description: "HK типа значения (нормализованный)"
+          - name: fullname
+            description: "Полное наименование типа значения"
+          - name: load_date
+            description: "Время загрузки записи"
+          - name: source_system
+            description: "Источник данных"
+

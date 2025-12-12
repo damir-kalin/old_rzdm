@@ -1,0 +1,2165 @@
+{
+  "orgname": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\"",
+  "orginn": "7104044855",
+  "orgogrn": null,
+  "kodform": "КНС_502",
+  "nameform": "2.2 КПЭ. Текучесть, коэффициент совместительства (до 2026г.)",
+  "period1": "01.10.2025",
+  "period2": "31.10.2025",
+  "datarecord": [
+    {
+      "nomstroki": 1,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор в отчетном периоде по всем основаниям, предусмотренным Трудовым кодексом Российской Федерации"
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 7
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 12
+    },
+    {
+      "nomstroki": 1,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 171.43
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.1"
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор в отчетном периоде по всем основаниям, предусмотренным Трудовым кодексом Российской Федерации"
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 2,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.1"
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор в отчетном периоде по всем основаниям, предусмотренным Трудовым кодексом Российской Федерации"
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 3
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 9
+    },
+    {
+      "nomstroki": 3,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 300
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.1"
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор в отчетном периоде по всем основаниям, предусмотренным Трудовым кодексом Российской Федерации"
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 2
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 4,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.1"
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор в отчетном периоде по всем основаниям, предусмотренным Трудовым кодексом Российской Федерации"
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 3
+    },
+    {
+      "nomstroki": 5,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 300
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.2"
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор на основании пунктов 1, 3, 5 части 1 статьи 77 Трудового кодекса Российской Федерации"
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 4
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 11
+    },
+    {
+      "nomstroki": 6,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 275
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.2"
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор на основании пунктов 1, 3, 5 части 1 статьи 77 Трудового кодекса Российской Федерации"
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 7,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.2"
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор на основании пунктов 1, 3, 5 части 1 статьи 77 Трудового кодекса Российской Федерации"
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 9
+    },
+    {
+      "nomstroki": 8,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 900
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.2"
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор на основании пунктов 1, 3, 5 части 1 статьи 77 Трудового кодекса Российской Федерации"
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 9,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.5.2"
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Численность работников, с которыми прекращен трудовой договор на основании пунктов 1, 3, 5 части 1 статьи 77 Трудового кодекса Российской Федерации"
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 2
+    },
+    {
+      "nomstroki": 10,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 200
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.1"
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Среднесписочная численность работников"
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 637.41
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 603.02
+    },
+    {
+      "nomstroki": 11,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 94.6
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.1"
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Среднесписочная численность работников"
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 121.44
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 106.07
+    },
+    {
+      "nomstroki": 12,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 87.34
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.1"
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Среднесписочная численность работников"
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 310.37
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 278.99
+    },
+    {
+      "nomstroki": 13,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 89.89
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.1"
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Среднесписочная численность работников"
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 77.11
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 72.89
+    },
+    {
+      "nomstroki": 14,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 94.53
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.1"
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Среднесписочная численность работников"
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 128.49
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 145.07
+    },
+    {
+      "nomstroki": 15,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 112.9
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.1"
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Общая текучесть персонала"
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.1
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 1.99
+    },
+    {
+      "nomstroki": 16,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 180.91
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.1"
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Общая текучесть персонала"
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.82
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 17,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.1"
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Общая текучесть персонала"
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.97
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 3.23
+    },
+    {
+      "nomstroki": 18,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 332.99
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.1"
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Общая текучесть персонала"
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 2.59
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 19,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.1"
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Общая текучесть персонала"
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.78
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 2.07
+    },
+    {
+      "nomstroki": 20,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 265.38
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.2"
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Текучесть персонала на основании решения работника"
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.63
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 1.82
+    },
+    {
+      "nomstroki": 21,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 288.89
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.2"
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Текучесть персонала на основании решения работника"
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.82
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 22,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.2"
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Текучесть персонала на основании решения работника"
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.32
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 3.23
+    },
+    {
+      "nomstroki": 23,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 1009.38
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.2"
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Текучесть персонала на основании решения работника"
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.3
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 0
+    },
+    {
+      "nomstroki": 24,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 0
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.6.2"
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Текучесть персонала на основании решения работника"
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "%"
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 0.78
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 1.38
+    },
+    {
+      "nomstroki": 25,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 176.92
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.7"
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество занятых должностей "
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "долж."
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1016.5
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 941.11
+    },
+    {
+      "nomstroki": 26,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 92.58
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.7"
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество занятых должностей "
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "долж."
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 169.25
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 132.04
+    },
+    {
+      "nomstroki": 27,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 78.01
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.7"
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество занятых должностей "
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "долж."
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 412.5
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 380.53
+    },
+    {
+      "nomstroki": 28,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 92.25
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.7"
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество занятых должностей "
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "долж."
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 176.25
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 182.98
+    },
+    {
+      "nomstroki": 29,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 103.82
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.7"
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество занятых должностей "
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "долж."
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 258.5
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 245.56
+    },
+    {
+      "nomstroki": 30,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 94.99
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.8"
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество фактически трудящегося медперсонала"
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 679
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 700
+    },
+    {
+      "nomstroki": 31,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 103.09
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.8"
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество фактически трудящегося медперсонала"
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 125
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 160
+    },
+    {
+      "nomstroki": 32,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 128
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.8"
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество фактически трудящегося медперсонала"
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 318
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 311
+    },
+    {
+      "nomstroki": 33,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 97.8
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.8"
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество фактически трудящегося медперсонала"
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 82
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 75
+    },
+    {
+      "nomstroki": 34,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 91.46
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.8"
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Количество фактически трудящегося медперсонала"
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "чел."
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 154
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 154
+    },
+    {
+      "nomstroki": 35,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 100
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.9"
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Коэффициент совместительства (по занятым должностям)"
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "Всего персонал"
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "знач."
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.5
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 134
+    },
+    {
+      "nomstroki": 36,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 89.33
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.9"
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Коэффициент совместительства (по занятым должностям)"
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "врачебный персонал"
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "знач."
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.35
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 83
+    },
+    {
+      "nomstroki": 37,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 61.48
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.9"
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Коэффициент совместительства (по занятым должностям)"
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "средний медицинский персонал"
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "знач."
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.3
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 122
+    },
+    {
+      "nomstroki": 38,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 93.85
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.9"
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Коэффициент совместительства (по занятым должностям)"
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "младший медицинский персонал"
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "знач."
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 2.15
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 244
+    },
+    {
+      "nomstroki": 39,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 113.49
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 1,
+      "namekol": "№ показателя",
+      "znach": "1.9"
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 2,
+      "namekol": "Наименование ЧУЗ",
+      "znach": "ЧУЗ \"КБ \"РЖД-Медицина\" г.Тула\""
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 3,
+      "namekol": "Наименование группы показателей",
+      "znach": "Общие показатели кадрового состава"
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 4,
+      "namekol": "Наименование показателя",
+      "znach": "Коэффициент совместительства (по занятым должностям)"
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 5,
+      "namekol": "Категория",
+      "znach": "прочий персонал"
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 6,
+      "namekol": "Ед. измерения",
+      "znach": "знач."
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 7,
+      "namekol": "План",
+      "znach": 1.68
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 8,
+      "namekol": "Факт",
+      "znach": 159
+    },
+    {
+      "nomstroki": 40,
+      "nomkol": 9,
+      "namekol": "% выполнения",
+      "znach": 94.64
+    }
+  ]
+}

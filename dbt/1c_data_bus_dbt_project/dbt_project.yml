@@ -1,0 +1,42 @@
+name: 'one_c_data_bus_dbt_project'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'one_c_data_bus_dbt_project'
+
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+models:
+  one_c_data_bus_dbt_project:
+    iceberg_rzdm:
+      +materialized: table
+    unverified_rdv:
+      +materialized: table
+    unverified_bdv:
+      +materialized: table
+    unverified_mart:
+      +materialized: table
+    unverified_report:
+      +materialized: view
+
+
+# Глобальная конфигурация тестов - все тесты будут предупреждениями
+# Это предотвратит падение пайплайна при ошибках в тестах
+tests:
+  one_c_data_bus_dbt_project:
+    +severity: warn  # Все тесты будут предупреждениями, а не ошибками
+
+

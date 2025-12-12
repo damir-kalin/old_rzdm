@@ -1,0 +1,45 @@
+{
+    "path_count": 147,
+    "parsed_path_count": 4,
+    "static_analysis_path_count": 3,
+    "static_analysis_parsed_path_count": 3,
+    "is_partial_parse_enabled": true,
+    "is_static_analysis_enabled": true,
+    "read_files_elapsed": 0.008846681999784778,
+    "load_macros_elapsed": 0.0003214799999113893,
+    "parse_project_elapsed": 0.19622885699936887,
+    "patch_sources_elapsed": 7.414000720018521e-06,
+    "process_manifest_elapsed": 0.0015522569992754143,
+    "load_all_elapsed": 0.37032139699840627,
+    "projects": [
+        {
+            "project_name": "one_c_data_bus_dbt_project",
+            "elapsed": 0.19610977299998922,
+            "parsers": [
+                {
+                    "parser": "model",
+                    "elapsed": 0.10861772700081929,
+                    "parsed_path_count": 3
+                },
+                {
+                    "parser": "test",
+                    "elapsed": 0.08747929399942223,
+                    "parsed_path_count": 1
+                }
+            ],
+            "parsed_path_count": 4
+        },
+        {
+            "project_name": "dbt_starrocks",
+            "elapsed": 0,
+            "parsers": [],
+            "parsed_path_count": 0
+        },
+        {
+            "project_name": "dbt",
+            "elapsed": 0,
+            "parsers": [],
+            "parsed_path_count": 0
+        }
+    ]
+}

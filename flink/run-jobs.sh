@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# mvn clean package -DskipTests
+
 NAMESPACE="rzdm"
 JOB_MANAGER_NAME="jobmanager"
 JOB_MANAGER_POD=$(kubectl get pods -n $NAMESPACE | grep $JOB_MANAGER_NAME | awk '{print $1}')

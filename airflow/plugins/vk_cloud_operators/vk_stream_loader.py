@@ -3,6 +3,7 @@
 """
 import time
 import logging
+import uuid
 import pandas as pd
 from typing import Dict, Any, Optional, List
 from requests import Session
@@ -287,4 +288,4 @@ class VKStreamLoader:
     @staticmethod
     def _generate_label() -> str:
         """Генерирует уникальную метку для загрузки."""
-        return f"stream_load_{int(time.time() * 1000)}"
+        return f"stream_load_{int(time.time() * 1000)}_{uuid.uuid4().hex[:8]}"

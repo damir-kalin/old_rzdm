@@ -1,13 +1,15 @@
 # Переменные для Kafka
-# Функция для создания топика
 KAFKA_BROKERS="127.0.0.1:9091"
 KAFKA_USER="admin"
 KAFKA_PASSWORD="Q1w2e3r+"
+PARTITIONS=3
+REPLICATION_FACTOR=3
 
 TOPICS=(
     "sys__nsi__esud_rzdm__organization__data"
     "sys__nsi__esud_rzdm__contractor__data"
     "sys__kuirzp__esud_rzdm__employee__data"
+    "sys__kuirzp__esud_rzdm__kpi__data"
     "sys__asb__esud_rzdm__contractor_debt__data"
     "sys__buinu__esud_rzdm__form__data"
     "sys__isras__esud_rzdm__order__data"
@@ -31,11 +33,11 @@ create_topic() {
     /opt/bitnami/kafka/bin/kafka-topics.sh \
         --bootstrap-server $kafka_brokers \
         --command-config <(cat <<EOF
-        security.protocol=SASL_PLAINTEXT
-        sasl.mechanism=PLAIN
-        sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="$kafka_user" password="$kafka_password";
-        EOF
-        ) \
+security.protocol=SASL_PLAINTEXT
+sasl.mechanism=PLAIN
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="$kafka_user" password="$kafka_password";
+EOF
+) \
         --create --topic $topic_name --partitions $partitions --replication-factor $replication_factor
     
     if [ $? -eq 0 ]; then
@@ -47,5 +49,5 @@ create_topic() {
 
 # Создание топиков
 for topic in "${TOPICS[@]}"; do
-    create_topic $topic $partitions $replication_factor $KAFKA_BROKERS $KAFKA_USER $KAFKA_PASSWORD
+    create_topic $topic $PARTITIONS $REPLICATION_FACTOR $KAFKA_BROKERS $KAFKA_USER $KAFKA_PASSWORD
 done

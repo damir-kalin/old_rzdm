@@ -1,0 +1,14 @@
+proekt_shablon_1:
+  target: dev
+  outputs:
+    dev:
+      type: starrocks
+      host: kube-starrocks-fe-service
+      port: 9030
+      
+      schema: unverified_rdv
+      username: root
+      password: Q1w2e3r+
+      threads: 1
+      keepalives_idle: 0
+      

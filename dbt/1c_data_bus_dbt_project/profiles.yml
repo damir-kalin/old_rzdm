@@ -1,0 +1,28 @@
+one_c_data_bus_dbt_project:
+  target: unverified_rdv
+  outputs:
+   
+    unverified_rdv:
+      type: starrocks
+      host: kube-starrocks-fe-service
+      # host: 172.21.250.5
+      # port: 9030
+      # port: 30519
+      port: 9030
+      username: root
+      password: 'Q1w2e3r+'
+      schema: unverified_rdv
+      threads: 1
+      keepalives_idle: 0
+    
+    unverified_mart:
+      type: starrocks
+      # host: 172.21.250.5
+      host: kube-starrocks-fe-service
+      # port: 30519
+      port: 9030
+      username: root
+      password: 'Q1w2e3r+'
+      schema: unverified_mart
+      threads: 1
+      keepalives_idle: 0  

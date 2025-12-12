@@ -58,7 +58,8 @@ public class KpiPipeline {
             }
             RawData rawData = new RawData();
             rawData.setValues(value.trim());
-            rawData.setLoadTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+            rawData.setLoadDttm(Timestamp.valueOf(LocalDateTime.now()));
+            rawData.setSrcSysId("kuirzp");
             return rawData;
         }).filter(Objects::nonNull)
           .name("Wrap raw JSON")
@@ -81,10 +82,10 @@ public class KpiPipeline {
                 .withPassword(jdbcPassword)
                 .build();
 
-        final int parameterCount = 2;
+        final int parameterCount = 3;
 
         String insertSql = "INSERT INTO iceberg.rzdm.stg_kpi (" +
-                    "`values`, load_timestamp" +
+                    "`values`, load_dttm, src_sys_id" +
                 ") VALUES (" +
                     String.join(", ", Collections.nCopies(parameterCount, "?")) +
                 ")";
@@ -92,7 +93,8 @@ public class KpiPipeline {
         JdbcStatementBuilder<RawData> statementBuilder = (statement, rawData) -> {
             int index = 1;
             setNullableString(statement, index++, rawData.getValues());
-            setNullableTimestamp(statement, index++, rawData.getLoadTimestamp());
+            setNullableTimestamp(statement, index++, rawData.getLoadDttm());
+            setNullableString(statement, index++, rawData.getSrcSysId());
         };
 
         DataStream<RawData> filteredStream = eventStream
@@ -123,10 +125,16 @@ public class KpiPipeline {
         
         // Отключаем проверку утечки classloader для избежания ошибок при завершении
         config.setString("classloader.check-leaked-classloader", "false");
+        
+        // Настройка стратегии перезапуска: до 3 попыток с задержкой 10 секунд
+        config.setString("restart-strategy.type", "fixed-delay");
+        config.setString("restart-strategy.fixed-delay.attempts", "3");
+        config.setString("restart-strategy.fixed-delay.delay", "10 s");
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.configure(config, KpiPipeline.class.getClassLoader());
         env.setParallelism(1);
+        
         return env;
     }
 
@@ -148,12 +156,15 @@ public class KpiPipeline {
 
     public static class RawData {
         private String values;
-        private Timestamp loadTimestamp;
+        private Timestamp loadDttm;
+        private String srcSysId;
 
         public String getValues() { return values; }
         public void setValues(String values) { this.values = values; }
-        public Timestamp getLoadTimestamp() { return loadTimestamp; }
-        public void setLoadTimestamp(Timestamp loadTimestamp) { this.loadTimestamp = loadTimestamp; }
+        public Timestamp getLoadDttm() { return loadDttm; }
+        public void setLoadDttm(Timestamp loadDttm) { this.loadDttm = loadDttm; }
+        public String getSrcSysId() { return srcSysId; }
+        public void setSrcSysId(String srcSysId) { this.srcSysId = srcSysId; }
     }
 }
 

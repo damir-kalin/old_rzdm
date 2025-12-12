@@ -1,0 +1,169 @@
+version: 2
+
+models:
+  - name: hub_rdv__contractor_debt
+    description: "Хаб задолженности контрагентов. Содержит уникальные бизнес-ключи для задолженностей контрагентов."
+    columns:
+      - name: contractor_debt_hk
+        description: "Суррогатный ключ (Hub Key) для задолженности контрагента"
+        tests:
+          - not_null
+          - unique
+      - name: organization
+        description: "Наименование организации"
+      - name: organization_inn
+        description: "ИНН организации"
+      - name: organization_kpp
+        description: "КПП организации"
+      - name: organization_mdm_key
+        description: "MDM ключ организации"
+      - name: counterparty
+        description: "Наименование контрагента"
+      - name: counterparty_inn
+        description: "ИНН контрагента"
+      - name: counterparty_kpp
+        description: "КПП контрагента"
+      - name: counterparty_mdm_key
+        description: "MDM ключ контрагента"
+      - name: contract
+        description: "Номер договора"
+      - name: amount_owed
+        description: "Сумма задолженности"
+      - name: timestamp
+        description: "Временная метка задолженности"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: hub_rdv__contractors
+    description: "Хаб контрагентов. Содержит уникальные бизнес-ключи для контрагентов."
+    columns:
+      - name: contractors_hk
+        description: "Суррогатный ключ (Hub Key) для контрагента"
+        tests:
+          - not_null
+          - unique
+      - name: uid
+        description: "Уникальный идентификатор контрагента"
+      - name: guid
+        description: "Глобальный уникальный идентификатор контрагента"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: hub_rdv__employees
+    description: "Хаб сотрудников. Содержит уникальные бизнес-ключи для сотрудников."
+    columns:
+      - name: employees_hk
+        description: "Суррогатный ключ (Hub Key) для сотрудника"
+        tests:
+          - not_null
+          - unique
+      - name: uid
+        description: "Уникальный идентификатор сотрудника"
+      - name: guid
+        description: "Глобальный уникальный идентификатор сотрудника"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: hub_rdv__forms
+    description: "Хаб форм отчетности. Содержит уникальные бизнес-ключи для форм отчетности."
+    columns:
+      - name: forms_hk
+        description: "Суррогатный ключ (Hub Key) для формы отчетности"
+        tests:
+          - not_null
+          - unique
+      - name: orgname
+        description: "Наименование организации"
+      - name: orginn
+        description: "ИНН организации"
+      - name: orgkpp
+        description: "КПП организации"
+      - name: kodform
+        description: "Код формы отчетности"
+      - name: period1
+        description: "Начало периода отчетности"
+      - name: period2
+        description: "Конец периода отчетности"
+      - name: kodstr
+        description: "Код строки формы"
+      - name: kodkol
+        description: "Код колонки формы"
+      - name: summa
+        description: "Сумма по строке и колонке"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: hub_rdv__kpi
+    description: "Хаб KPI показателей. Содержит уникальные бизнес-ключи для KPI показателей."
+    columns:
+      - name: kpi_hk
+        description: "Суррогатный ключ (Hub Key) для KPI показателя"
+        tests:
+          - not_null
+          - unique
+      - name: orgname
+        description: "Наименование организации"
+      - name: orginn
+        description: "ИНН организации"
+      - name: orgogrn
+        description: "ОГРН организации"
+      - name: kodform
+        description: "Код формы отчетности"
+      - name: nameform
+        description: "Наименование формы отчетности"
+      - name: period1
+        description: "Начало периода отчетности"
+      - name: period2
+        description: "Конец периода отчетности"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: nomstroki
+        description: "Номер строки в форме"
+      - name: nom_pokazatelya
+        description: "Номер показателя"
+      - name: naimenovanie_chuz
+        description: "Наименование ЧУЗ"
+      - name: naimenovanie_gruppy
+        description: "Наименование группы показателей"
+      - name: naimenovanie_pokazatelya
+        description: "Наименование показателя"
+      - name: kategoriya
+        description: "Категория показателя"
+      - name: edinitsa_izmereniya
+        description: "Единица измерения"
+      - name: plan
+        description: "Плановое значение показателя"
+      - name: fakt
+        description: "Фактическое значение показателя"
+      - name: protsent_vypolneniya
+        description: "Процент выполнения показателя"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+
+  - name: hub_rdv__organizations
+    description: "Хаб организаций. Содержит уникальные бизнес-ключи для организаций."
+    columns:
+      - name: organizations_hk
+        description: "Суррогатный ключ (Hub Key) для организации"
+        tests:
+          - not_null
+          - unique
+      - name: inn
+        description: "ИНН организации"
+      - name: kpp
+        description: "КПП организации"
+      - name: ogrn
+        description: "ОГРН организации"
+      - name: src_sys_id
+        description: "Идентификатор системы-источника данных"
+      - name: load_dttm
+        description: "Дата и время загрузки записи"
+

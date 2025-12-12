@@ -11,7 +11,7 @@ DEFAULT_ARGS = {
     "start_date": datetime(2025, 1, 1),
     "email_on_failure": False,
     "email_on_retry": False,
-    "retries": 0,
+    "retries": 2,
     "retry_delay": timedelta(minutes=5),
 }
 

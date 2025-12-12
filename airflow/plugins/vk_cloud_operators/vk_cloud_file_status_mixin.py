@@ -1,6 +1,6 @@
 """
 Mixin for managing VK Cloud S3 file status in PostgreSQL.
-Uses forms_file_metadata tables (separate from sandbox file_metadata).
+Uses case_file_metadata tables (separate from sandbox file_metadata).
 """
 from typing import Optional, List, Dict, Any
 
@@ -11,8 +11,8 @@ class VKCloudFileStatusMixin:
     Provides methods for updating statuses, tracking history, and getting metadata.
 
     Uses tables:
-    - forms_file_metadata (current status)
-    - forms_file_metadata_history (full history via trigger)
+    - case_file_metadata (current status)
+    - case_file_metadata_history (full history via trigger)
     - processing_status (status codes)
     - processing_error (error codes)
     - buckets (bucket registry)
@@ -35,7 +35,7 @@ class VKCloudFileStatusMixin:
     ) -> int:
         """
         Check if VK Cloud file has changed and update metadata.
-        Calls check_update_forms_file_s3() stored function.
+        Calls check_update_case_file_s3() stored function.
 
         Args:
             file_id: Unique file identifier (GUID)
@@ -55,7 +55,7 @@ class VKCloudFileStatusMixin:
         cur = conn.cursor()
         try:
             sql = """
-                SELECT public.check_update_forms_file_s3(
+                SELECT public.check_update_case_file_s3(
                     %s::VARCHAR, %s::VARCHAR, %s::VARCHAR,
                     %s::VARCHAR, %s::TIMESTAMP, %s::BIGINT, %s::VARCHAR
                 );
@@ -83,7 +83,7 @@ class VKCloudFileStatusMixin:
     ) -> bool:
         """
         Update VK Cloud file status.
-        Calls update_status_forms_file_s3() stored function.
+        Calls update_status_case_file_s3() stored function.
 
         Args:
             file_id: Unique file identifier (GUID)
@@ -136,7 +136,7 @@ class VKCloudFileStatusMixin:
             hook = self.get_postgres_hook(database="service_db")
             with hook.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT public.update_status_forms_file_s3(%s, %s);"
+                    sql = "SELECT public.update_status_case_file_s3(%s, %s);"
                     cur.execute(sql, (file_id, actual_code))
                     result = cur.fetchone()
                     conn.commit()
@@ -155,7 +155,7 @@ class VKCloudFileStatusMixin:
     ) -> List[Dict[str, Any]]:
         """
         Get files that exist in DB but are missing from S3.
-        Calls get_missing_s3_forms_files() stored function.
+        Calls get_missing_s3_case_files() stored function.
 
         Args:
             current_keys: List of current S3 keys
@@ -173,7 +173,7 @@ class VKCloudFileStatusMixin:
             cur = conn.cursor()
 
             cur.execute(
-                "SELECT * FROM public.get_missing_s3_forms_files(%s)",
+                "SELECT * FROM public.get_missing_s3_case_files(%s)",
                 (current_keys,)
             )
             rows = cur.fetchall()
@@ -222,7 +222,7 @@ class VKCloudFileStatusMixin:
             hook = self.get_postgres_hook(database="service_db")
             with hook.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "DELETE FROM public.forms_file_metadata WHERE file_id = %s;"
+                    sql = "DELETE FROM public.case_file_metadata WHERE file_id = %s;"
                     cur.execute(sql, (file_id,))
                     conn.commit()
                     return cur.rowcount > 0
@@ -257,7 +257,7 @@ class VKCloudFileStatusMixin:
                             pe.description as error_description,
                             fm.last_modified,
                             fm.updated_at
-                        FROM public.forms_file_metadata fm
+                        FROM public.case_file_metadata fm
                         JOIN public.buckets b ON fm.bucket_id = b.bucket_id
                         LEFT JOIN public.processing_status ps
                             ON fm.file_load_status_id = ps.status_id
@@ -315,7 +315,7 @@ class VKCloudFileStatusMixin:
                             pe.code as error_code,
                             pe.description as error_description,
                             h.updated_at
-                        FROM public.forms_file_metadata_history h
+                        FROM public.case_file_metadata_history h
                         LEFT JOIN public.processing_status ps
                             ON h.file_load_status_id = ps.status_id
                         LEFT JOIN public.processing_error pe

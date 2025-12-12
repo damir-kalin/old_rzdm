@@ -3,12 +3,13 @@
 JM_PORT="${FLINK_REST_PORT:-8081}"
 JM_ADDRESS="${FLINK_REST_ADDRESS:-flink-jobmanager}"
 CLASSES=(
-  "com.example.streaming.OrganizationsPipeline"
-  "com.example.streaming.ContractorsPipeline"
   "com.example.streaming.ContractorDebtPipeline"
+  "com.example.streaming.ContractorsPipeline"  
   "com.example.streaming.EmployeePipeline"
   "com.example.streaming.FormPipeline"
   "com.example.streaming.KpiPipeline"
+  "com.example.streaming.OrganizationsPipeline"
+  #"com.example.streaming.KpiPipeline"
 )
 
 for CLASS in "${CLASSES[@]}"; do

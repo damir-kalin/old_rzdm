@@ -1,0 +1,39 @@
+name: 'proekt_shablon_1'
+version: '1.0.0'
+config-version: 2
+
+profile: 'proekt_shablon_1'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  proekt_shablon_1:
+    +materialized: view
+    staging:
+      +materialized: table
+      +schema: t1_stage
+    rdv:
+      hubs:
+        +materialized: table
+        +schema: unverified_rdv
+      links:
+        +materialized: table
+        +schema: unverified_rdv
+      sats:
+        +materialized: table
+        +schema: unverified_rdv
+
+vars:
+  source_system: 'excel_forms'
+  source_table_name: 'stage.form_1'
+
