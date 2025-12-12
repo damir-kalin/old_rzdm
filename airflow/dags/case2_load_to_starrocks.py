@@ -11,6 +11,9 @@ from starrocks_operators import (
     StarRocksDropTableOperator,
     StarRocksDropViewOperator,
 )
+import sys
+sys.path.insert(0, '/opt/airflow/plugins')
+
 from vk_cloud_operators import VKCloudS3Sensor, Template2Operator
 
 # Bucket to schema mapping

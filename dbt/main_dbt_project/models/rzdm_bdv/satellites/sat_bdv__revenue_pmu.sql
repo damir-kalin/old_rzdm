@@ -64,7 +64,7 @@ s_unit.unit_hk,
 s_disc.discreteness_hk,
 s_met.metric_hk,
 s_dtype.data_type_hk  
-from main_rdv.hub_rdv__revenue h_rev
+from main_rdv.hub_rdv__revenue_pmu h_rev
 inner join main_rdv.sat_rdv__revenue_pmu s_rev on h_rev.revenue_hk = s_rev.revenue_hk  
 -- связь выручки и дороги
 inner join main_rdv.link_rdv__road_revenue_pmu l_road_rev on h_rev.revenue_hk = l_road_rev.revenue_hk 

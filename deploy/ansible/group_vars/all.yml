@@ -1,15 +1,16 @@
-repo_path: "/repo/demo-stand"
+repo_path: "/repo/rzdm-data-platform"
 git_branch: "master"
 git_remote: "origin"
 
-airflow_dags_path: "/opt/airflow/dags"
-airflow_plugins_path: "/opt/airflow/plugins"
-airflow_dbt_path: "/opt/airflow/dbt"
+airflow_dags_path: "/opt/airflow/"
+airflow_plugins_path: "/opt/airflow/"
+airflow_dbt_path: "/opt/airflow/"
 
-local_dags_path: "{{ playbook_dir }}/../../build/airflow/dags"
-local_plugins_path: "{{ playbook_dir }}/../../build/airflow/plugins"
-local_dbt_path: "{{ playbook_dir }}/../../build/dbt"
-local_flink_path: "{{ playbook_dir }}/../../build/flink"
+local_dags_path: "/repo/rzdm-data-platform/airflow/dags/"
+local_plugins_path: "/repo/rzdm-data-platform/airflow/plugins/"
+local_dbt_path: "/repo/rzdm-data-platform/dbt/"
+local_flink_path: "/build/flink/"
+
 
 # StarRocks databases to create
 starrocks_databases:

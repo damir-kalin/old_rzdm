@@ -1,0 +1,31 @@
+# echo DEPLOY_ENV=dev
+# copy this script to destanation system and run, prepare config
+# nano /repo/rzdm_repo_update.sh
+# chmod +x /repo/rzdm_repo_update.sh
+
+# python -m venv git_deploy
+# source ./git_deploy/bin/activate
+# pip install --upgrade pip
+# pip install pip install git-remote-s3
+
+# aws configure set default.s3.use_accelerate_endpoint false
+# aws configure set default.s3.addressing_style path
+source /repo/git_deploy/bin/activate
+rm -rf /repo/rzdm-data-platform
+cd /repo
+git clone s3://rzdm-dev-technical-area/git-mirrors/rzdm-data-platform-${DEPLOY_ENV}.git 
+mv rzdm-data-platform-${DEPLOY_ENV}/ rzdm-data-platform
+cd /repo/rzdm-data-platform
+git branch dev
+git branch test
+git branch prod
+git checkout dev
+git log
+#kubectl cp /repo/demo-stand/build/airflow/dags/mis_loader_with_parms.py rzdm/airflow-1762357726-worker-0:/opt/ai>
+#kubectl exec -nrzdm airflow-1762357726-worker-0  -- ls -la /opt/airflow/mis_loader_with_parms.py
+chmod -R 777 /repo/rzdm-data-platform
+
+/repo/rzdm-data-platform/deploy/scripts/deploy.sh deploy prod --component dags
+/repo/rzdm-data-platform/deploy/scripts/deploy.sh deploy prod --component plugins
+/repo/rzdm-data-platform/deploy/scripts/deploy.sh deploy prod --component dbt
+# ls /opt/airflow/dags /opt/airflow/plugins /opt/airflow/dbt
